@@ -71,6 +71,8 @@ import moe.rukamori.archivetune.constants.PureBlackKey
 import moe.rukamori.archivetune.db.entities.Playlist
 import moe.rukamori.archivetune.innertube.models.PlaylistItem
 import moe.rukamori.archivetune.innertube.models.WatchEndpoint
+import moe.rukamori.archivetune.models.PlaylistSource
+import moe.rukamori.archivetune.models.playlistSource
 import moe.rukamori.archivetune.ui.component.MenuState
 import moe.rukamori.archivetune.ui.menu.PlaylistMenu
 import moe.rukamori.archivetune.ui.menu.YouTubePlaylistMenu
@@ -632,15 +634,21 @@ fun PlaylistListCard(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
 
+                val source = playlist.playlist.playlistSource()
                 val tagText =
-                    if (playlist.playlist.isEditable) {
-                        stringResource(
-                            R.string.personal_label,
-                        )
+                    stringResource(
+                        when (source) {
+                            PlaylistSource.SPOTIFY -> R.string.spotify_integration
+                            PlaylistSource.YOUTUBE -> R.string.youtube_synced
+                            PlaylistSource.PERSONAL -> R.string.personal_label
+                        },
+                    )
+                val tagColor =
+                    if (source == PlaylistSource.PERSONAL) {
+                        MaterialTheme.colorScheme.primary
                     } else {
-                        stringResource(R.string.youtube_synced)
+                        MaterialTheme.colorScheme.secondary
                     }
-                val tagColor = if (playlist.playlist.isEditable) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
                 Box(
                     modifier =
                         Modifier
