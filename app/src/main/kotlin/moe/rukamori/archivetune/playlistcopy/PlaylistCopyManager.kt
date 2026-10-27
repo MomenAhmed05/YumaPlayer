@@ -6,6 +6,7 @@
 
 package moe.rukamori.archivetune.playlistcopy
 
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -14,6 +15,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -38,24 +40,12 @@ class PlaylistCopyManager
 
         /** Starts [request], replacing a copy that is still running. */
         fun start(request: PlaylistCopyRequest) {
-            synchronized(lock) {
-                job?.cancel()
-                val current = ++generation
-                lastRequest = request
-                _state.value = PlaylistCopyState.Running(PlaylistCopyProgress(PlaylistCopyStage.READING))
-                job =
-                    scope.launch {
-                        val outcome = copier.copy(request) { progress -> publish(current, PlaylistCopyState.Running(progress)) }
-                        synchronized(lock) {
-                            if (current != generation) return@launch
-                            if (outcome is PlaylistCopyState.Success) {
-                                // A retry adds what is still missing to the playlist that was just written.
-                                lastRequest = request.copy(destination = PlaylistCopyDestination.Existing(outcome.result.playlistId))
-                            }
-                            _state.value = outcome
-                        }
-                    }
-            }
+            launchCopy { request }
+        }
+
+        /** Creates the editable copy of a Spotify playlist, or adds its new songs to the copy that exists. */
+        fun startEditableCopy(source: PlaylistCopySource.Spotify) {
+            launchCopy { PlaylistCopyRequest(source, copier.editableCopyDestination(source.playlistId, source.name)) }
         }
 
         /** Runs the last request again; songs that were copied are skipped. */
@@ -74,6 +64,37 @@ class PlaylistCopyManager
             }
         }
 
+        private fun launchCopy(buildRequest: suspend () -> PlaylistCopyRequest) {
+            synchronized(lock) {
+                job?.cancel()
+                val current = ++generation
+                _state.value = PlaylistCopyState.Running(PlaylistCopyProgress(PlaylistCopyStage.READING))
+                job =
+                    scope.launch {
+                        val request =
+                            try {
+                                buildRequest()
+                            } catch (e: CancellationException) {
+                                throw e
+                            } catch (e: Exception) {
+                                Timber.tag(TAG).w(e, "Could not prepare the copy")
+                                publish(current, PlaylistCopyState.Failure())
+                                return@launch
+                            }
+                        synchronized(lock) { if (current == generation) lastRequest = request }
+                        val outcome = copier.copy(request) { progress -> publish(current, PlaylistCopyState.Running(progress)) }
+                        synchronized(lock) {
+                            if (current != generation) return@launch
+                            if (outcome is PlaylistCopyState.Success) {
+                                // A retry adds what is still missing to the playlist that was just written.
+                                lastRequest = request.copy(destination = PlaylistCopyDestination.Existing(outcome.result.playlistId))
+                            }
+                            _state.value = outcome
+                        }
+                    }
+            }
+        }
+
         private fun publish(
             current: Int,
             state: PlaylistCopyState,
@@ -81,5 +102,9 @@ class PlaylistCopyManager
             synchronized(lock) {
                 if (current == generation) _state.value = state
             }
+        }
+
+        private companion object {
+            const val TAG = "PlaylistCopy"
         }
     }
