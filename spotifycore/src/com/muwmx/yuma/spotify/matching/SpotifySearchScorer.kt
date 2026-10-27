@@ -204,7 +204,20 @@ class SpotifySearchScorer(private val matcher: TrackMatcher) {
         return Regex(pattern).containsMatchIn(haystack)
     }
 
-    private fun isCrossScript(a: String, b: String): Boolean = hasCjk(a) != hasCjk(b)
+    /**
+     * True when one name is written only in CJK and the other only in Latin
+     * letters (須田景凪 / Keina Suda), so a direct comparison cannot work. A
+     * name that already carries Latin letters ("Gateway ゲートウェイ") does
+     * not qualify; it has to match on those letters.
+     */
+    private fun isCrossScript(a: String, b: String): Boolean =
+        (isOnlyCjk(a) && isOnlyLatin(b)) || (isOnlyLatin(a) && isOnlyCjk(b))
+
+    private fun isOnlyCjk(s: String): Boolean = hasCjk(s) && !hasLatin(s)
+
+    private fun isOnlyLatin(s: String): Boolean = hasLatin(s) && !hasCjk(s)
+
+    private fun hasLatin(s: String): Boolean = s.any { it in 'a'..'z' || it in 'A'..'Z' }
 
     private fun hasCjk(s: String): Boolean = s.any { ch ->
         val code = ch.code

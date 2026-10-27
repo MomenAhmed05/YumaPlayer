@@ -97,4 +97,30 @@ class SpotifySearchScorerTest {
         assertNull("Should abstain on ambiguous candidates", decision.accepted)
         assertEquals("ambiguous", decision.reason)
     }
+
+    @Test
+    fun `pick matches an artist written in another script when title and duration agree`() {
+        val query = TrackQuery(artist = "Keina Suda", title = "Arcade", durationMs = 200_000L)
+        val candidate = SpotifyTrack(
+            id = "1",
+            name = "Arcade",
+            artists = listOf(SpotifySimpleArtist(name = "須田景凪")),
+            durationMs = 200_000,
+        )
+
+        assertEquals("1", scorer.pick(query, listOf(candidate)).accepted?.id)
+    }
+
+    @Test
+    fun `pick does not treat a name with Latin letters as a script mismatch`() {
+        val query = TrackQuery(artist = "Gateway ゲートウェイ", title = "Arcade", durationMs = 200_000L)
+        val candidate = SpotifyTrack(
+            id = "1",
+            name = "Arcade",
+            artists = listOf(SpotifySimpleArtist(name = "Someone Else")),
+            durationMs = 200_000,
+        )
+
+        assertNull(scorer.pick(query, listOf(candidate)).accepted)
+    }
 }
