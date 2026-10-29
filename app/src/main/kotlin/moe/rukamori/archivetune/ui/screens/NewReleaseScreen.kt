@@ -62,6 +62,8 @@ import moe.rukamori.archivetune.ui.component.shimmer.GridItemPlaceHolder
 import moe.rukamori.archivetune.ui.component.shimmer.ShimmerHost
 import moe.rukamori.archivetune.ui.haptics.rememberYumaHaptics
 import moe.rukamori.archivetune.ui.menu.YouTubeAlbumMenu
+import moe.rukamori.archivetune.ui.screens.newrelease.NewReleaseGridContent
+import moe.rukamori.archivetune.ui.screens.newrelease.NewReleaseTab
 import moe.rukamori.archivetune.ui.utils.backToMain
 import moe.rukamori.archivetune.viewmodels.NewReleaseContent
 import moe.rukamori.archivetune.viewmodels.NewReleaseUiState

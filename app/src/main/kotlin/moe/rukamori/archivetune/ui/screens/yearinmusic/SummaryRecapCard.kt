@@ -40,8 +40,6 @@ import coil3.compose.AsyncImage
 import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.ui.screens.RecapInk
 import moe.rukamori.archivetune.ui.screens.RecapLime
-import moe.rukamori.archivetune.ui.screens.YearInMusicRecapCard
-import moe.rukamori.archivetune.ui.screens.rememberShareSafeImageRequest
 
 @Composable
 internal fun SummaryRecapCard(

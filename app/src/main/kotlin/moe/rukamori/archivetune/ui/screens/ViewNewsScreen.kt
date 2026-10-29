@@ -57,6 +57,11 @@ import moe.rukamori.archivetune.LocalPlayerAwareWindowInsets
 import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.models.NewsItem
 import moe.rukamori.archivetune.ui.component.MarkdownText
+import moe.rukamori.archivetune.ui.screens.news.ViewNewsCarousel
+import moe.rukamori.archivetune.ui.screens.news.ViewNewsErrorState
+import moe.rukamori.archivetune.ui.screens.news.ViewNewsFullImageDialog
+import moe.rukamori.archivetune.ui.screens.news.ViewNewsLoadingState
+import moe.rukamori.archivetune.ui.screens.news.ViewNewsMetaRow
 import moe.rukamori.archivetune.ui.utils.backToMain
 import moe.rukamori.archivetune.viewmodels.ViewNewsUiState
 import moe.rukamori.archivetune.viewmodels.ViewNewsViewModel

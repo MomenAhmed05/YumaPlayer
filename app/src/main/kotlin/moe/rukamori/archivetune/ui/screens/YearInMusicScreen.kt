@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import moe.rukamori.archivetune.ui.screens.yearinmusic.YearInMusicRecapScreen
 import moe.rukamori.archivetune.viewmodels.YearInMusicViewModel
 
 internal val RecapBlack = Color(0xFF070707)

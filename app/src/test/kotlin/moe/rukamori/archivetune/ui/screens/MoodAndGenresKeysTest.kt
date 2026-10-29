@@ -2,6 +2,8 @@ package moe.rukamori.archivetune.ui.screens
 
 import moe.rukamori.archivetune.innertube.models.BrowseEndpoint
 import moe.rukamori.archivetune.innertube.pages.MoodAndGenres
+import moe.rukamori.archivetune.ui.screens.moodandgenres.deriveMoodAndGenresKeys
+import moe.rukamori.archivetune.ui.screens.moodandgenres.moodAndGenresItemKey
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertTrue

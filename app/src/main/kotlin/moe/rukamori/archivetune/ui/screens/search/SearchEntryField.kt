@@ -38,8 +38,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.search.SearchDiscoveryUiModel
-import moe.rukamori.archivetune.ui.screens.MoodAndGenresButton
-import moe.rukamori.archivetune.ui.screens.MoodAndGenresButtonHeight
+import moe.rukamori.archivetune.ui.screens.moodandgenres.MoodAndGenresButton
+import moe.rukamori.archivetune.ui.screens.moodandgenres.MoodAndGenresButtonHeight
 import moe.rukamori.archivetune.ui.screens.buildYouTubeBrowseRoute
 import moe.rukamori.archivetune.viewmodels.SearchDiscoveryTab
 

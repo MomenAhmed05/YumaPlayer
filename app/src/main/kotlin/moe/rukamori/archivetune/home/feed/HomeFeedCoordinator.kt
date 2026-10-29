@@ -63,8 +63,10 @@ class HomeFeedCoordinator
         private val previousHomePage = MutableStateFlow<HomePage?>(null)
         private val previousCommunitySection = MutableStateFlow<HomePage.Section?>(null)
         private val communityPreviewGeneration = AtomicLong(0L)
+        private val feedDataGeneration = AtomicLong(0L)
         private var communityPreviewJob: Job? = null
         private var chipLoadJob: Job? = null
+        private var paginationJob: Job? = null
 
         private var boundScope: CoroutineScope? = null
         private var onItemsUpdatedCallback: (() -> Unit)? = null
@@ -81,11 +83,13 @@ class HomeFeedCoordinator
                     onItemsUpdatedCallback = null
                     communityPreviewJob = null
                     chipLoadJob = null
+                    paginationJob = null
                 }
             }
         }
 
         fun applyInitialHome(page: HomePage) {
+            feedDataGeneration.incrementAndGet()
             val prepared = prepareCommunityHomePage(page, allowStructuralFallback = true)
             _homePage.value = prepared.homePage
             updateCommunitySection(prepared.communitySection)
@@ -93,6 +97,24 @@ class HomeFeedCoordinator
 
         fun onInitialHomeFailure() {
             updateCommunitySection(null)
+        }
+
+        fun clear() {
+            feedDataGeneration.incrementAndGet()
+            communityPreviewGeneration.incrementAndGet()
+            communityPreviewJob?.cancel()
+            communityPreviewJob = null
+            chipLoadJob?.cancel()
+            chipLoadJob = null
+            paginationJob?.cancel()
+            paginationJob = null
+            _homePage.value = null
+            _communitySection.value = null
+            _selectedChip.value = null
+            previousHomePage.value = null
+            previousCommunitySection.value = null
+            _isLoadingMore.value = false
+            onItemsUpdatedCallback?.invoke()
         }
 
         internal fun updateCommunitySection(section: HomePage.Section?) {
@@ -146,10 +168,12 @@ class HomeFeedCoordinator
             }
 
             val scope = boundScope ?: return
+            val chipGeneration = feedDataGeneration.incrementAndGet()
             chipLoadJob =
                 scope.launch(Dispatchers.IO) {
                     loadHome(chipParams = chip.endpoint?.params)
                         .onSuccess { nextSections ->
+                            if (chipGeneration != feedDataGeneration.get()) return@onSuccess
                             Timber.tag("HomeDebug").d(
                                 "toggleChip SUCCESS: loaded %d sections: %s",
                                 nextSections.sections.size,
@@ -170,6 +194,7 @@ class HomeFeedCoordinator
                             updateCommunitySection(prepared.communitySection)
                             onItemsUpdatedCallback?.invoke()
                         }.onFailure {
+                            if (chipGeneration != feedDataGeneration.get()) return@onFailure
                             Timber.tag("HomeDebug").e(it, "toggleChip FAILED")
                             reportException(it)
                             if (selectedChip.value == null) {
@@ -184,28 +209,35 @@ class HomeFeedCoordinator
             if (continuation == null || _isLoadingMore.value) return
 
             val scope = boundScope ?: return
-            scope.launch(Dispatchers.IO) {
-                _isLoadingMore.value = true
-                try {
-                    val nextSections = loadMore(continuation).getOrNull() ?: return@launch
-                    val prepared =
-                        prepareCommunityHomePage(
-                            homePage = nextSections,
-                            allowStructuralFallback = _communitySection.value == null,
-                        )
-                    if (_communitySection.value == null && prepared.communitySection != null) {
-                        updateCommunitySection(prepared.communitySection)
+            val paginationGeneration = feedDataGeneration.get()
+            paginationJob?.cancel()
+            paginationJob =
+                scope.launch(Dispatchers.IO) {
+                    _isLoadingMore.value = true
+                    try {
+                        val nextSections = loadMore(continuation).getOrNull() ?: return@launch
+                        if (paginationGeneration != feedDataGeneration.get()) return@launch
+                        val prepared =
+                            prepareCommunityHomePage(
+                                homePage = nextSections,
+                                allowStructuralFallback = _communitySection.value == null,
+                            )
+                        if (paginationGeneration != feedDataGeneration.get()) return@launch
+                        if (_communitySection.value == null && prepared.communitySection != null) {
+                            updateCommunitySection(prepared.communitySection)
+                        }
+                        _homePage.value =
+                            nextSections.copy(
+                                chips = homePage.value?.chips,
+                                sections = homePage.value?.sections.orEmpty() + prepared.homePage.sections,
+                            )
+                        onItemsUpdatedCallback?.invoke()
+                    } finally {
+                        if (paginationGeneration == feedDataGeneration.get()) {
+                            _isLoadingMore.value = false
+                        }
                     }
-                    _homePage.value =
-                        nextSections.copy(
-                            chips = homePage.value?.chips,
-                            sections = homePage.value?.sections.orEmpty() + prepared.homePage.sections,
-                        )
-                    onItemsUpdatedCallback?.invoke()
-                } finally {
-                    _isLoadingMore.value = false
                 }
-            }
         }
 
         suspend fun loadHome(chipParams: String? = null): Result<HomePage> =

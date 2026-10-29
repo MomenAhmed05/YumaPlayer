@@ -24,7 +24,6 @@ import moe.rukamori.archivetune.db.entities.Artist
 import moe.rukamori.archivetune.ui.screens.RecapCream
 import moe.rukamori.archivetune.ui.screens.RecapRed
 import moe.rukamori.archivetune.ui.screens.RecapYellow
-import moe.rukamori.archivetune.ui.screens.YearInMusicRecapCard
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

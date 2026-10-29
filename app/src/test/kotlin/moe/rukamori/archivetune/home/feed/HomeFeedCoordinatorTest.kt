@@ -279,4 +279,60 @@ class HomeFeedCoordinatorTest {
             scope.coroutineContext[Job]?.cancelAndJoin()
         }
     }
+
+    @Test
+    fun delayedPagination_acrossClear_doesNotAppendToClearedFeed() = runBlocking {
+        val scope = CoroutineScope(Dispatchers.Default + Job())
+
+        try {
+            coordinator.bind(scope)
+
+            val initialSection = HomePage.Section(
+                title = "Initial Section",
+                label = null,
+                thumbnail = null,
+                endpoint = null,
+                items = emptyList(),
+            )
+            val initialPage = HomePage(chips = null, sections = listOf(initialSection), continuation = "cont_1")
+            every { prepareCommunityUseCase(initialPage, allowStructuralFallback = true) } returns
+                PreparedCommunityHomePage(homePage = initialPage, communitySection = null)
+
+            coordinator.applyInitialHome(initialPage)
+            assertEquals(initialPage, coordinator.homePage.value)
+
+            val paginationStarted = CompletableDeferred<Unit>()
+            val paginationRelease = CompletableDeferred<Unit>()
+            val pagedSection = HomePage.Section(
+                title = "Paged Section",
+                label = null,
+                thumbnail = null,
+                endpoint = null,
+                items = emptyList(),
+            )
+            val pagedPage = HomePage(chips = null, sections = listOf(pagedSection))
+
+            coEvery { YouTube.home(continuation = "cont_1") } coAnswers {
+                paginationStarted.complete(Unit)
+                paginationRelease.await()
+                Result.success(pagedPage)
+            }
+            every { prepareCommunityUseCase(pagedPage, any()) } returns
+                PreparedCommunityHomePage(homePage = pagedPage, communitySection = null)
+
+            coordinator.loadMoreItems("cont_1")
+            paginationStarted.await()
+
+            coordinator.clear()
+            assertNull(coordinator.homePage.value)
+
+            paginationRelease.complete(Unit)
+
+            kotlinx.coroutines.delay(50)
+            assertNull(coordinator.homePage.value)
+            assertFalse(coordinator.isLoadingMore.value)
+        } finally {
+            scope.coroutineContext[Job]?.cancelAndJoin()
+        }
+    }
 }

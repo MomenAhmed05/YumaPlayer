@@ -37,7 +37,6 @@ import moe.rukamori.archivetune.innertube.pages.HomePage
 import moe.rukamori.archivetune.models.MediaMetadata
 import moe.rukamori.archivetune.playback.PlayerConnection
 import moe.rukamori.archivetune.ui.component.MenuState
-import moe.rukamori.archivetune.ui.screens.HomeSectionHeader
 import moe.rukamori.archivetune.ui.screens.Screens
 import moe.rukamori.archivetune.ui.screens.buildBrowseRoute
 

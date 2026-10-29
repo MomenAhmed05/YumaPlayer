@@ -26,6 +26,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import moe.rukamori.archivetune.LocalPlayerAwareWindowInsets
 import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.ui.component.NavigationTitle
+import moe.rukamori.archivetune.ui.screens.moodandgenres.moodAndGenresSection
 import moe.rukamori.archivetune.viewmodels.MoodAndGenresViewModel
 
 @OptIn(ExperimentalFoundationApi::class)

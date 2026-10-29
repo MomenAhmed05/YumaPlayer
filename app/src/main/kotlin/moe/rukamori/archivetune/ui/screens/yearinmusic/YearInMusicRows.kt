@@ -43,7 +43,6 @@ import moe.rukamori.archivetune.ui.screens.RecapRed
 import moe.rukamori.archivetune.ui.screens.RecapSurfaceHigh
 import moe.rukamori.archivetune.ui.screens.RecapTokens
 import moe.rukamori.archivetune.ui.screens.RecapYellow
-import moe.rukamori.archivetune.ui.screens.rememberShareSafeImageRequest
 import moe.rukamori.archivetune.utils.makeTimeString
 
 @Composable

@@ -14,6 +14,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -39,6 +40,7 @@ import moe.rukamori.archivetune.home.LoadCommunityPlaylistPreviewsUseCase
 import moe.rukamori.archivetune.home.ObserveHomePresentationPreferencesUseCase
 import moe.rukamori.archivetune.home.PrepareCommunityHomePageUseCase
 import moe.rukamori.archivetune.home.account.HomeAccountCoordinator
+import moe.rukamori.archivetune.home.feed.HomeFeedCache
 import moe.rukamori.archivetune.home.feed.HomeFeedCoordinator
 import moe.rukamori.archivetune.home.quickpicks.HomeQuickPicksManager
 import moe.rukamori.archivetune.home.recommendations.HomeLocalRecommendationsUseCase
@@ -53,6 +55,7 @@ import moe.rukamori.archivetune.utils.SavedAccount
 import moe.rukamori.archivetune.utils.SyncUtils
 import moe.rukamori.archivetune.utils.dataStore
 import moe.rukamori.archivetune.utils.reportException
+import java.util.concurrent.atomic.AtomicLong
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -69,6 +72,7 @@ constructor(
     private val accountCoordinator: HomeAccountCoordinator,
     private val feedCoordinator: HomeFeedCoordinator,
     private val stateComposer: HomeStateComposer,
+    private val feedCache: HomeFeedCache,
 ) : ViewModel() {
     constructor(
         context: Context,
@@ -81,6 +85,7 @@ constructor(
         prepareCommunityHomePage: PrepareCommunityHomePageUseCase,
         loadCommunityPlaylistPreviews: LoadCommunityPlaylistPreviewsUseCase,
         filterCommunityPreviews: FilterCommunityPreviewsUseCase,
+        feedCache: HomeFeedCache = HomeFeedCache(context),
     ) : this(
         context = context,
         syncUtils = syncUtils,
@@ -99,6 +104,7 @@ constructor(
             filterCommunityPreviews = filterCommunityPreviews,
         ),
         stateComposer = HomeStateComposer(),
+        feedCache = feedCache,
     )
 
     private val isRefreshing = MutableStateFlow(false)
@@ -106,6 +112,11 @@ constructor(
     private val isInitialLoadComplete = MutableStateFlow(false)
     private val loadError = MutableStateFlow<Int?>(null)
     private val loadMutex = Mutex()
+    private val accountMutex = Mutex()
+    private val accountGeneration = AtomicLong(0L)
+    @Volatile
+    private var reloadRequested = false
+    private var cacheHydrationJob: Job? = null
 
     private val quickPicks = quickPicksManager.observe(viewModelScope)
     private val speedDialItems = MutableStateFlow<List<LocalItem>>(emptyList())
@@ -168,48 +179,109 @@ constructor(
 
     private suspend fun load() {
         delay(150.milliseconds)
-        if (!loadMutex.tryLock()) return
+        try {
+            cacheHydrationJob?.join()
+        } catch (e: CancellationException) {
+            throw e
+        }
+
+        while (true) {
+            reloadRequested = true
+            if (!loadMutex.tryLock()) return
+
+            try {
+                do {
+                    reloadRequested = false
+                    executeLoad()
+                } while (reloadRequested)
+            } finally {
+                loadMutex.unlock()
+            }
+
+            if (!reloadRequested) break
+        }
+    }
+
+    private suspend fun executeLoad() {
         isLoading.value = true
         loadError.value = null
+        val currentAccountGen = accountGeneration.get()
 
         try {
             supervisorScope {
                 launch {
-                    forgottenFavorites.value = localRecommendations.loadForgottenFavorites()
+                    val favorites = localRecommendations.loadForgottenFavorites()
+                    if (currentAccountGen == accountGeneration.get()) {
+                        forgottenFavorites.value = favorites
+                    }
                 }
                 launch {
-                    keepListening.value = localRecommendations.loadKeepListening()
+                    val keep = localRecommendations.loadKeepListening()
+                    if (currentAccountGen == accountGeneration.get()) {
+                        keepListening.value = keep
+                    }
                 }
             }
 
-            updateAllLocalItems()
+            if (currentAccountGen == accountGeneration.get()) {
+                updateAllLocalItems()
+            }
 
-            feedCoordinator.loadHome()
+            val networkResult =
+                accountMutex.withLock {
+                    if (currentAccountGen != accountGeneration.get()) {
+                        return@executeLoad
+                    }
+                    feedCoordinator.loadHome()
+                }
+
+            networkResult
                 .onSuccess { page ->
-                    feedCoordinator.applyInitialHome(page)
+                    accountMutex.withLock {
+                        if (currentAccountGen == accountGeneration.get()) {
+                            feedCoordinator.applyInitialHome(page)
+                            feedCache.saveHomePage(page)
+                            updateAllYtItems()
+                        }
+                    }
                 }.onFailure {
-                    reportException(it)
-                    loadError.value = R.string.error_unknown
-                    feedCoordinator.onInitialHomeFailure()
+                    accountMutex.withLock {
+                        if (currentAccountGen == accountGeneration.get()) {
+                            reportException(it)
+                            loadError.value = R.string.error_unknown
+                            feedCoordinator.onInitialHomeFailure()
+                        }
+                    }
                 }
 
             viewModelScope.launch(Dispatchers.IO) {
-                similarRecommendations.value = similarRecommendationsUseCase()
-                updateAllYtItems()
+                val similar = similarRecommendationsUseCase()
+                accountMutex.withLock {
+                    if (currentAccountGen == accountGeneration.get()) {
+                        similarRecommendations.value = similar
+                        updateAllYtItems()
+                    }
+                }
             }
 
-            updateAllYtItems()
-
-            isInitialLoadComplete.value = true
+            accountMutex.withLock {
+                if (currentAccountGen == accountGeneration.get()) {
+                    updateAllYtItems()
+                    isInitialLoadComplete.value = true
+                }
+            }
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
             reportException(e)
-            loadError.value = R.string.error_unknown
+            if (currentAccountGen == accountGeneration.get()) {
+                loadError.value = R.string.error_unknown
+            }
         } finally {
-            isInitialLoadComplete.value = true
+            if (currentAccountGen == accountGeneration.get()) {
+                isInitialLoadComplete.value = true
+            }
             isLoading.value = false
-            loadMutex.unlock()
         }
     }
 
@@ -247,8 +319,19 @@ constructor(
         account: SavedAccount,
         forceSyncOnSwitch: Boolean,
     ) {
+        val switchGen = accountGeneration.incrementAndGet()
+        cacheHydrationJob?.cancel()
+        feedCoordinator.clear()
+        similarRecommendations.value = null
+        updateAllYtItems()
         viewModelScope.launch(Dispatchers.IO) {
-            accountCoordinator.switchAccount(account, forceSyncOnSwitch)
+            accountMutex.withLock {
+                feedCache.clear()
+                accountCoordinator.switchAccount(account, forceSyncOnSwitch)
+            }
+            if (switchGen == accountGeneration.get()) {
+                load()
+            }
         }
     }
 
@@ -256,8 +339,19 @@ constructor(
         channel: AccountChannelUiModel,
         forceSyncOnSwitch: Boolean,
     ) {
+        val switchGen = accountGeneration.incrementAndGet()
+        cacheHydrationJob?.cancel()
+        feedCoordinator.clear()
+        similarRecommendations.value = null
+        updateAllYtItems()
         viewModelScope.launch(Dispatchers.IO) {
-            accountCoordinator.switchChannel(channel, forceSyncOnSwitch)
+            accountMutex.withLock {
+                feedCache.clear()
+                accountCoordinator.switchChannel(channel, forceSyncOnSwitch)
+            }
+            if (switchGen == accountGeneration.get()) {
+                load()
+            }
         }
     }
 
@@ -265,6 +359,20 @@ constructor(
         feedCoordinator.bind(viewModelScope) {
             updateAllYtItems()
         }
+
+        val initAccountGen = accountGeneration.get()
+        cacheHydrationJob =
+            viewModelScope.launch(Dispatchers.IO) {
+                val cached = feedCache.loadHomePage()
+                if (cached != null) {
+                    accountMutex.withLock {
+                        if (initAccountGen == accountGeneration.get()) {
+                            feedCoordinator.applyInitialHome(cached)
+                            updateAllYtItems()
+                        }
+                    }
+                }
+            }
 
         viewModelScope.launch(Dispatchers.IO) {
             quickPicks.collect {

@@ -35,7 +35,6 @@ import moe.rukamori.archivetune.ui.screens.RecapRedDeep
 import moe.rukamori.archivetune.ui.screens.RecapSurface
 import moe.rukamori.archivetune.ui.screens.RecapSurfaceHigh
 import moe.rukamori.archivetune.ui.screens.RecapTokens
-import moe.rukamori.archivetune.ui.screens.YearInMusicRecapCard
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
