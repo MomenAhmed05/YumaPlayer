@@ -1,4 +1,4 @@
-package moe.rukamori.archivetune
+package moe.rukamori.archivetune.ui.scaffold
 
 import android.net.Uri
 import androidx.compose.foundation.layout.Arrangement
@@ -58,6 +58,9 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import kotlinx.coroutines.CoroutineScope
+import moe.rukamori.archivetune.BuildConfig
+import moe.rukamori.archivetune.R
+import moe.rukamori.archivetune.defaultUpdateChannel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

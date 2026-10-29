@@ -21,8 +21,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.CoroutineScope
-import moe.rukamori.archivetune.LocalDatabase
-import moe.rukamori.archivetune.LocalPlayerConnection
+import moe.rukamori.archivetune.ui.main.LocalDatabase
+import moe.rukamori.archivetune.ui.main.LocalPlayerConnection
 import moe.rukamori.archivetune.constants.SpeedDialSongIdsKey
 import moe.rukamori.archivetune.db.entities.Artist
 import moe.rukamori.archivetune.ui.component.ArtistListItem

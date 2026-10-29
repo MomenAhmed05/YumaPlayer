@@ -1,4 +1,4 @@
-package moe.rukamori.archivetune
+package moe.rukamori.archivetune.ui.player.host
 
 import android.app.Activity
 import android.content.ContextWrapper
@@ -45,6 +45,9 @@ import moe.rukamori.archivetune.ui.player.host.PlayerBackHandler
 import moe.rukamori.archivetune.ui.player.host.rememberNavigationSlideOffset
 import moe.rukamori.archivetune.ui.screens.Screens
 import moe.rukamori.archivetune.ui.settings.SettingsDimensions
+import moe.rukamori.archivetune.ui.system.PlayerSystemBars
+import moe.rukamori.archivetune.ui.system.SystemBarController
+import moe.rukamori.archivetune.ui.system.rememberPlayerBottomSheetState
 import moe.rukamori.archivetune.ui.theme.YdsInsets
 import moe.rukamori.archivetune.viewmodels.HomeViewModel
 

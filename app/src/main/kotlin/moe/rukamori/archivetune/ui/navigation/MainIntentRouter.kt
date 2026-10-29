@@ -1,4 +1,4 @@
-package moe.rukamori.archivetune
+package moe.rukamori.archivetune.ui.navigation
 
 import android.content.Intent
 import android.net.Uri
@@ -17,6 +17,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import moe.rukamori.archivetune.MainActivity
+import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.models.ParsedIntentAction
 import moe.rukamori.archivetune.musicrecognition.openMusicRecognition
 import moe.rukamori.archivetune.playback.MusicService
@@ -24,6 +26,7 @@ import moe.rukamori.archivetune.playback.PlayerConnection
 import moe.rukamori.archivetune.playback.joinTogether
 import moe.rukamori.archivetune.playback.queues.ListQueue
 import moe.rukamori.archivetune.playback.queues.Queue
+import moe.rukamori.archivetune.playback.service.MusicServiceBinding
 import moe.rukamori.archivetune.utils.IntentParser
 import moe.rukamori.archivetune.utils.dataStore
 import moe.rukamori.archivetune.utils.reportException

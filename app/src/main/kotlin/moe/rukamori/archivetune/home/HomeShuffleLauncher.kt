@@ -1,4 +1,4 @@
-package moe.rukamori.archivetune
+package moe.rukamori.archivetune.home
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

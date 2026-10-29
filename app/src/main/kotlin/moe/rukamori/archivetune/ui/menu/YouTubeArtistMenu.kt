@@ -22,8 +22,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
-import moe.rukamori.archivetune.LocalDatabase
-import moe.rukamori.archivetune.LocalPlayerConnection
+import moe.rukamori.archivetune.ui.main.LocalDatabase
+import moe.rukamori.archivetune.ui.main.LocalPlayerConnection
 import moe.rukamori.archivetune.constants.SpeedDialSongIdsKey
 import moe.rukamori.archivetune.innertube.models.ArtistItem
 import moe.rukamori.archivetune.ui.component.YouTubeListItem

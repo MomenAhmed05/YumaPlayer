@@ -1,4 +1,4 @@
-package moe.rukamori.archivetune
+package moe.rukamori.archivetune.ui.system
 
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
@@ -16,6 +16,7 @@ import moe.rukamori.archivetune.constants.AppBarHeight
 import moe.rukamori.archivetune.ui.PlayerViewModel
 import moe.rukamori.archivetune.ui.component.BottomSheetState
 import moe.rukamori.archivetune.ui.component.rememberBottomSheetState
+import moe.rukamori.archivetune.ui.player.host.PlayerDockGeometry
 
 @Composable
 fun rememberPlayerBottomSheetState(

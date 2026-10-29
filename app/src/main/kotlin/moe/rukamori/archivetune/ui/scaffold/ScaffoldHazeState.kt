@@ -1,4 +1,4 @@
-package moe.rukamori.archivetune
+package moe.rukamori.archivetune.ui.scaffold
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable

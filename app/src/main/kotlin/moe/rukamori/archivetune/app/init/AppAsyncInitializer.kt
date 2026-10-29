@@ -4,7 +4,7 @@
  * GPL-3.0 License | Contributors: see git history
  */
 
-package moe.rukamori.archivetune
+package moe.rukamori.archivetune.app.init
 
 import android.content.Intent
 import androidx.datastore.preferences.core.edit
@@ -14,6 +14,8 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import moe.rukamori.archivetune.App
+import moe.rukamori.archivetune.DebugActivity
 import moe.rukamori.archivetune.constants.*
 import moe.rukamori.archivetune.extensions.toEnum
 import moe.rukamori.archivetune.innertube.YouTube

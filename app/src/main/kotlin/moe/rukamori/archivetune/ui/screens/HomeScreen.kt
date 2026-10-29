@@ -24,7 +24,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import moe.rukamori.archivetune.LocalPlayerConnection
+import moe.rukamori.archivetune.ui.main.LocalPlayerConnection
 import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.home.HomeAction
 import moe.rukamori.archivetune.home.HomeScreenState

@@ -1,4 +1,4 @@
-package moe.rukamori.archivetune
+package moe.rukamori.archivetune.app.init
 
 import androidx.activity.ComponentActivity
 import androidx.compose.animation.core.EaseOut
@@ -16,6 +16,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
+import moe.rukamori.archivetune.App
 import moe.rukamori.archivetune.constants.SplashOverlayEnabledKey
 import moe.rukamori.archivetune.ui.component.splash.SplashConfig
 import moe.rukamori.archivetune.ui.component.splash.SplashSlots

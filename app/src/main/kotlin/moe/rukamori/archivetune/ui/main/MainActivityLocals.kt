@@ -1,4 +1,4 @@
-package moe.rukamori.archivetune
+package moe.rukamori.archivetune.ui.main
 
 import androidx.compose.runtime.staticCompositionLocalOf
 import moe.rukamori.archivetune.db.MusicDatabase

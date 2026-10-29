@@ -36,9 +36,9 @@ import androidx.media3.exoplayer.offline.DownloadService
 import androidx.navigation.NavController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import moe.rukamori.archivetune.LocalDatabase
-import moe.rukamori.archivetune.LocalDownloadUtil
-import moe.rukamori.archivetune.LocalPlayerConnection
+import moe.rukamori.archivetune.ui.main.LocalDatabase
+import moe.rukamori.archivetune.ui.main.LocalDownloadUtil
+import moe.rukamori.archivetune.ui.main.LocalPlayerConnection
 import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.constants.ArtistSeparatorsKey
 import moe.rukamori.archivetune.constants.SpeedDialSongIdsKey

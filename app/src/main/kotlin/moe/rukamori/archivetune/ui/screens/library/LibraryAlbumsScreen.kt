@@ -35,7 +35,7 @@ import androidx.navigation.NavController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import moe.rukamori.archivetune.LocalPlayerAwareWindowInsets
-import moe.rukamori.archivetune.LocalPlayerConnection
+import moe.rukamori.archivetune.ui.main.LocalPlayerConnection
 import moe.rukamori.archivetune.constants.AlbumFilter
 import moe.rukamori.archivetune.constants.AlbumFilterKey
 import moe.rukamori.archivetune.constants.AlbumSortDescendingKey

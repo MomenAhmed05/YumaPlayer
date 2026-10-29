@@ -35,9 +35,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import moe.rukamori.archivetune.LocalDatabase
+import moe.rukamori.archivetune.ui.main.LocalDatabase
 import moe.rukamori.archivetune.LocalPlayerAwareWindowInsets
-import moe.rukamori.archivetune.LocalPlayerConnection
+import moe.rukamori.archivetune.ui.main.LocalPlayerConnection
 import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.constants.ArtistFilter
 import moe.rukamori.archivetune.constants.ArtistFilterKey

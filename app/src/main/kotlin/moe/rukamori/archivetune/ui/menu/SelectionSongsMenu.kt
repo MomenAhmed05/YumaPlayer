@@ -37,10 +37,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.media3.exoplayer.offline.Download
 import androidx.media3.exoplayer.offline.DownloadService
-import moe.rukamori.archivetune.LocalDatabase
-import moe.rukamori.archivetune.LocalDownloadUtil
-import moe.rukamori.archivetune.LocalPlayerConnection
-import moe.rukamori.archivetune.LocalSyncUtils
+import moe.rukamori.archivetune.ui.main.LocalDatabase
+import moe.rukamori.archivetune.ui.main.LocalDownloadUtil
+import moe.rukamori.archivetune.ui.main.LocalPlayerConnection
+import moe.rukamori.archivetune.ui.main.LocalSyncUtils
 import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.constants.LikeSource
 import moe.rukamori.archivetune.db.entities.PlaylistSongMap

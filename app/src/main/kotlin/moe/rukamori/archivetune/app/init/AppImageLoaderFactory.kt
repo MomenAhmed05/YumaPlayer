@@ -4,7 +4,7 @@
  * GPL-3.0 License | Contributors: see git history
  */
 
-package moe.rukamori.archivetune
+package moe.rukamori.archivetune.app.init
 
 import android.os.Build
 import coil3.ImageLoader
@@ -16,6 +16,7 @@ import coil3.request.allowHardware
 import coil3.request.crossfade
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import moe.rukamori.archivetune.App
 import moe.rukamori.archivetune.constants.MaxImageCacheSizeKey
 import moe.rukamori.archivetune.constants.SmartTrimmerKey
 import moe.rukamori.archivetune.storage.StorageFolderKind

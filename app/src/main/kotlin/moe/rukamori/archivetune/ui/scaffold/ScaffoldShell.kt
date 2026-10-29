@@ -1,4 +1,4 @@
-package moe.rukamori.archivetune
+package moe.rukamori.archivetune.ui.scaffold
 
 import android.content.Intent
 import android.net.Uri
@@ -47,12 +47,23 @@ import moe.rukamori.archivetune.ui.component.MenuState
 import moe.rukamori.archivetune.ui.component.shimmer.ShimmerTheme
 import moe.rukamori.archivetune.ui.component.splash.SplashConfig
 import moe.rukamori.archivetune.ui.component.splash.SplashOverlay
+import moe.rukamori.archivetune.LocalAnimationsDisabled
+import moe.rukamori.archivetune.LocalMarqueeEnabled
+import moe.rukamori.archivetune.LocalPlayerAwareWindowInsets
 import moe.rukamori.archivetune.ui.haptics.LocalYumaHaptics
+import moe.rukamori.archivetune.ui.main.LocalDatabase
+import moe.rukamori.archivetune.ui.main.LocalDownloadUtil
+import moe.rukamori.archivetune.ui.main.LocalPlayerConnection
+import moe.rukamori.archivetune.ui.main.LocalSyncUtils
+import moe.rukamori.archivetune.ui.navigation.NavigationHost
+import moe.rukamori.archivetune.ui.player.host.PlayerOverlayHost
 import moe.rukamori.archivetune.ui.scaffold.ScaffoldNavigationRail
 import moe.rukamori.archivetune.ui.scaffold.ScaffoldSearchBarHost
 import moe.rukamori.archivetune.ui.scaffold.ScaffoldTopAppBar
 import moe.rukamori.archivetune.ui.scaffold.rememberScaffoldAppState
 import moe.rukamori.archivetune.ui.screens.isArtworkDetailRoute
+import moe.rukamori.archivetune.ui.system.SystemBarController
+import moe.rukamori.archivetune.ui.system.rememberBarScrollVisibility
 import moe.rukamori.archivetune.ui.utils.LocalGlobalVisibility
 import moe.rukamori.archivetune.ui.utils.LocalPlayerIsExpanded
 import moe.rukamori.archivetune.utils.SyncUtils

@@ -1,4 +1,4 @@
-package moe.rukamori.archivetune
+package moe.rukamori.archivetune.ui.player.host
 
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp

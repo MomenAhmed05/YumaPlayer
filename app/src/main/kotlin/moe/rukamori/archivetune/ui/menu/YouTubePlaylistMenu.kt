@@ -27,10 +27,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.media3.exoplayer.offline.Download
 import kotlinx.coroutines.CoroutineScope
-import moe.rukamori.archivetune.LocalDatabase
-import moe.rukamori.archivetune.LocalDownloadUtil
-import moe.rukamori.archivetune.LocalPlayerConnection
-import moe.rukamori.archivetune.LocalSyncUtils
+import moe.rukamori.archivetune.ui.main.LocalDatabase
+import moe.rukamori.archivetune.ui.main.LocalDownloadUtil
+import moe.rukamori.archivetune.ui.main.LocalPlayerConnection
+import moe.rukamori.archivetune.ui.main.LocalSyncUtils
 import moe.rukamori.archivetune.constants.SpeedDialSongIdsKey
 import moe.rukamori.archivetune.innertube.YouTube
 import moe.rukamori.archivetune.innertube.models.PlaylistItem

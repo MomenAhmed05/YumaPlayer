@@ -1,4 +1,4 @@
-package moe.rukamori.archivetune
+package moe.rukamori.archivetune.ui.system
 
 import android.annotation.SuppressLint
 import android.app.Activity

@@ -27,7 +27,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.delay
-import moe.rukamori.archivetune.ACTION_SEARCH
+import moe.rukamori.archivetune.ui.main.ACTION_SEARCH
 import moe.rukamori.archivetune.constants.SearchSource
 import moe.rukamori.archivetune.constants.SearchSourceKey
 import moe.rukamori.archivetune.ui.PlayerViewModel

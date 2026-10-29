@@ -37,7 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import moe.rukamori.archivetune.LocalDatabase
+import moe.rukamori.archivetune.ui.main.LocalDatabase
 import moe.rukamori.archivetune.constants.InnerTubeCookieKey
 import moe.rukamori.archivetune.db.entities.Playlist
 import moe.rukamori.archivetune.innertube.utils.hasYouTubeLoginCookie

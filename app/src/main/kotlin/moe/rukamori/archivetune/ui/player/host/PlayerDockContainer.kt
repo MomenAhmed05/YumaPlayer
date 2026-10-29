@@ -1,4 +1,4 @@
-package moe.rukamori.archivetune
+package moe.rukamori.archivetune.ui.player.host
 
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background

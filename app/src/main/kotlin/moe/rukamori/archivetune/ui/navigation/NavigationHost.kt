@@ -1,4 +1,4 @@
-package moe.rukamori.archivetune
+package moe.rukamori.archivetune.ui.navigation
 
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.foundation.focusGroup
@@ -25,7 +25,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navArgument
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
+import moe.rukamori.archivetune.BuildConfig
 import moe.rukamori.archivetune.constants.UpdateChannel
+import moe.rukamori.archivetune.defaultUpdateChannel
 import moe.rukamori.archivetune.musicrecognition.MusicRecognitionRoute
 import moe.rukamori.archivetune.ui.navigation.navigationEnterTransition
 import moe.rukamori.archivetune.ui.navigation.navigationExitTransition

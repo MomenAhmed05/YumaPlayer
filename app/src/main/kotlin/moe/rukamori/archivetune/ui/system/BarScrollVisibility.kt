@@ -1,4 +1,4 @@
-package moe.rukamori.archivetune
+package moe.rukamori.archivetune.ui.system
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable

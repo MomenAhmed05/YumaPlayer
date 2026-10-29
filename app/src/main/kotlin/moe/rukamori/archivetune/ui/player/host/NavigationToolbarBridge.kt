@@ -20,7 +20,7 @@ import dev.chrisbanes.haze.HazeState
 import kotlinx.coroutines.CoroutineScope
 import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.db.MusicDatabase
-import moe.rukamori.archivetune.launchHomeShuffle
+import moe.rukamori.archivetune.home.launchHomeShuffle
 import moe.rukamori.archivetune.musicrecognition.MusicRecognitionRoute
 import moe.rukamori.archivetune.playback.PlayerConnection
 import moe.rukamori.archivetune.ui.component.FloatingNavigationToolbar

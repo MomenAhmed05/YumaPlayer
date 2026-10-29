@@ -33,8 +33,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
-import moe.rukamori.archivetune.LocalDatabase
-import moe.rukamori.archivetune.LocalSyncUtils
+import moe.rukamori.archivetune.ui.main.LocalDatabase
+import moe.rukamori.archivetune.ui.main.LocalSyncUtils
 import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.constants.ListThumbnailSize
 import moe.rukamori.archivetune.db.entities.Playlist

@@ -1,4 +1,4 @@
-package moe.rukamori.archivetune
+package moe.rukamori.archivetune.ui.player.host
 
 import android.content.Intent
 import android.view.Window
@@ -29,6 +29,7 @@ import moe.rukamori.archivetune.ui.component.BottomSheetState
 import moe.rukamori.archivetune.ui.component.COLLAPSED_ANCHOR
 import moe.rukamori.archivetune.ui.component.DISMISSED_ANCHOR
 import moe.rukamori.archivetune.ui.component.EXPANDED_ANCHOR
+import moe.rukamori.archivetune.ui.navigation.awaitRestorablePlayback
 import moe.rukamori.archivetune.ui.state.PlayerEvent
 import moe.rukamori.archivetune.utils.rememberPreference
 
