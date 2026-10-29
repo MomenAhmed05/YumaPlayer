@@ -26,6 +26,8 @@ import moe.rukamori.archivetune.LocalPlayerConnection
 import moe.rukamori.archivetune.constants.SpeedDialSongIdsKey
 import moe.rukamori.archivetune.db.entities.Artist
 import moe.rukamori.archivetune.ui.component.ArtistListItem
+import moe.rukamori.archivetune.ui.menu.artist.ArtistMenuActionGrid
+import moe.rukamori.archivetune.ui.menu.artist.ArtistMenuOptions
 import moe.rukamori.archivetune.utils.SpeedDialPin
 import moe.rukamori.archivetune.utils.SpeedDialPinType
 import moe.rukamori.archivetune.utils.parseSpeedDialPins

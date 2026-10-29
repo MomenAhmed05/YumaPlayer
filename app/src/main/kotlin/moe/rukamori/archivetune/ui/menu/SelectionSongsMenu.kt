@@ -50,6 +50,8 @@ import moe.rukamori.archivetune.playback.ExoDownloadService
 import moe.rukamori.archivetune.playback.queues.ListQueue
 import moe.rukamori.archivetune.ui.component.MenuSurfaceSection
 import moe.rukamori.archivetune.ui.component.NewMenuItem
+import moe.rukamori.archivetune.ui.menu.selection.SelectionMenuRemoveDownloadDialog
+import moe.rukamori.archivetune.ui.menu.selection.SelectionSongMenuContent
 import moe.rukamori.archivetune.ui.utils.HeaderDownloadItem
 import moe.rukamori.archivetune.ui.utils.sendAddMissingDownloads
 
