@@ -1,4 +1,4 @@
-package moe.rukamori.archivetune.playback
+package moe.rukamori.archivetune.playback.resolvers
 
 import moe.rukamori.archivetune.innertube.PlaybackAuthState
 import java.net.ConnectException

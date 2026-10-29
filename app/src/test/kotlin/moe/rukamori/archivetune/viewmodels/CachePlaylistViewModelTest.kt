@@ -29,7 +29,7 @@ import moe.rukamori.archivetune.playback.MediaLibrarySessionCallback
 import moe.rukamori.archivetune.playback.extractMediaIdFromCacheKey
 import moe.rukamori.archivetune.playback.flacCacheKey
 import moe.rukamori.archivetune.playback.flacStreamCacheKey
-import moe.rukamori.archivetune.playback.resolvePreservedFlacContentLength
+import moe.rukamori.archivetune.playback.resolvers.resolvePreservedFlacContentLength
 import moe.rukamori.archivetune.playback.ytStreamCacheKey
 import moe.rukamori.archivetune.utils.get
 import org.junit.Assert.assertEquals

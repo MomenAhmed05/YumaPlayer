@@ -30,6 +30,14 @@ import moe.rukamori.archivetune.moriextractor.StreamingExtractionManager
 import moe.rukamori.archivetune.playback.crossfade.isFullyCached
 import moe.rukamori.archivetune.playback.resolvers.LosslessStreamResolver
 import moe.rukamori.archivetune.playback.resolvers.StreamUrlCache
+import moe.rukamori.archivetune.playback.resolvers.effectiveSource
+import moe.rukamori.archivetune.playback.resolvers.resolveExtractorCookies
+import moe.rukamori.archivetune.playback.resolvers.resolveExtractorGvsToken
+import moe.rukamori.archivetune.playback.resolvers.resolveExtractorPoToken
+import moe.rukamori.archivetune.playback.resolvers.resolveFlacKeyMetadataLength
+import moe.rukamori.archivetune.playback.resolvers.resolvePreservedFlacContentLength
+import moe.rukamori.archivetune.playback.resolvers.shouldBypassFlac
+import moe.rukamori.archivetune.playback.resolvers.toYouTubeWatchUrl
 import moe.rukamori.archivetune.utils.StreamUrlCache as YouTubeStreamUrlCache
 import moe.rukamori.archivetune.utils.AuthScopedCacheValue
 import moe.rukamori.archivetune.utils.YTPlayerUtils

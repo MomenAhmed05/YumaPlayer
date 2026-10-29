@@ -43,7 +43,7 @@ import moe.rukamori.archivetune.di.PlayerCache
 import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.extensions.toEnum
 import moe.rukamori.archivetune.innertube.YouTube
-import moe.rukamori.archivetune.playback.formatIdForSource
+import moe.rukamori.archivetune.playback.resolvers.formatIdForSource
 import moe.rukamori.archivetune.utils.AuthScopedCacheValue
 import moe.rukamori.archivetune.utils.ProxyAuth
 import moe.rukamori.archivetune.utils.StreamClientUtils

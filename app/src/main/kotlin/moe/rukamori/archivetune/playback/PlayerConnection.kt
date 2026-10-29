@@ -37,6 +37,8 @@ import moe.rukamori.archivetune.extensions.currentMetadata
 import moe.rukamori.archivetune.extensions.getCurrentQueueIndex
 import moe.rukamori.archivetune.extensions.getQueueWindows
 import moe.rukamori.archivetune.playback.MusicService.MusicBinder
+import moe.rukamori.archivetune.playback.resolvers.formatForSource
+import moe.rukamori.archivetune.playback.resolvers.getFormatForSource
 import moe.rukamori.archivetune.playback.requestTogetherControl
 import moe.rukamori.archivetune.playback.queues.Queue
 import moe.rukamori.archivetune.utils.reportException

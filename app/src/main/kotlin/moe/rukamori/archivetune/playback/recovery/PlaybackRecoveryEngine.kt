@@ -3,7 +3,7 @@
  * ArchiveTune (2026) | Original work by © Rukamori
  * GPL-3.0 License | Contributors: see git history
  */
-package moe.rukamori.archivetune.playback
+package moe.rukamori.archivetune.playback.recovery
 
 import android.net.Network
 import androidx.media3.common.MediaItem
@@ -13,9 +13,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import moe.rukamori.archivetune.db.MusicDatabase
-import moe.rukamori.archivetune.playback.recovery.NetworkStallReviver
-import moe.rukamori.archivetune.playback.recovery.RecoveryMaintenanceOps
-import moe.rukamori.archivetune.playback.recovery.StreamErrorRouter
 import moe.rukamori.archivetune.utils.AuthScopedCacheValue
 import moe.rukamori.archivetune.utils.YTPlayerUtils
 

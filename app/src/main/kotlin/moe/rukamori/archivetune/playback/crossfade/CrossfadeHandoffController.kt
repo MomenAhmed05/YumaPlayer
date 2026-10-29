@@ -22,8 +22,8 @@ import moe.rukamori.archivetune.audiodsp.AutomixPlan
 import moe.rukamori.archivetune.audiodsp.CrossfadeTarget
 import moe.rukamori.archivetune.audiodsp.TransitionTier
 import moe.rukamori.archivetune.extensions.metadata
-import moe.rukamori.archivetune.playback.ExoDeckController
 import moe.rukamori.archivetune.playback.MusicService
+import moe.rukamori.archivetune.playback.engine.ExoDeckController
 import moe.rukamori.archivetune.playback.applyEffectiveVolumeImmediately
 import moe.rukamori.archivetune.playback.currentEffectivePlayerVolumeForMediaId
 import moe.rukamori.archivetune.playback.updateAudiblePlaybackRecovery

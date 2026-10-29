@@ -1,4 +1,4 @@
-package moe.rukamori.archivetune.playback
+package moe.rukamori.archivetune.playback.resolvers
 
 import androidx.core.net.toUri
 import androidx.media3.common.PlaybackException
@@ -10,6 +10,7 @@ import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.constants.PlaybackSource
 import moe.rukamori.archivetune.innertube.YouTube
 import moe.rukamori.archivetune.moriextractor.ArchiveTuneExtractorException
+import moe.rukamori.archivetune.playback.MusicService
 import moe.rukamori.archivetune.utils.AuthScopedCacheValue
 
 internal const val ArchiveTuneExtractorCacheFingerprintPrefix = "archivetune_extractor:"

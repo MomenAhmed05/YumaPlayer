@@ -1,4 +1,4 @@
-package moe.rukamori.archivetune.playback
+package moe.rukamori.archivetune.playback.resolvers
 
 import moe.rukamori.archivetune.constants.PlaybackSource
 

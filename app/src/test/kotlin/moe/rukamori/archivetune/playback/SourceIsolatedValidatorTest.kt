@@ -16,6 +16,7 @@ import io.mockk.mockkStatic
 import io.mockk.unmockkAll
 import moe.rukamori.archivetune.constants.PlaybackSource
 import moe.rukamori.archivetune.db.entities.FormatEntity
+import moe.rukamori.archivetune.playback.resolvers.matchesSource
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse

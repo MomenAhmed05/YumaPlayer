@@ -7,7 +7,7 @@
  * (at your option) any later version.
  */
 
-package moe.rukamori.archivetune.playback
+package moe.rukamori.archivetune.playback.engine
 
 import androidx.media3.exoplayer.ExoPlayer
 import moe.rukamori.archivetune.audiodsp.AudioDeck

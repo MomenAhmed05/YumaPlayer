@@ -24,8 +24,8 @@ import moe.rukamori.archivetune.audiodsp.CrossfadeConstants
 import moe.rukamori.archivetune.audiodsp.CrossfadeTarget
 import moe.rukamori.archivetune.audiodsp.boundedFoldMs
 import moe.rukamori.archivetune.audiodsp.fadeProgress
-import moe.rukamori.archivetune.playback.ExoDeckController
 import moe.rukamori.archivetune.playback.MusicService
+import moe.rukamori.archivetune.playback.engine.ExoDeckController
 import moe.rukamori.archivetune.playback.bumpCrossfadePlanGeneration
 import moe.rukamori.archivetune.playback.currentEffectivePlayerVolume
 import moe.rukamori.archivetune.playback.currentEffectivePlayerVolumeForMediaId

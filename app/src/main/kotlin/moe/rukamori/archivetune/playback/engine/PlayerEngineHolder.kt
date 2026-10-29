@@ -25,7 +25,6 @@ import moe.rukamori.archivetune.audiodsp.DualForwardingPlayer
 import moe.rukamori.archivetune.audiodsp.DualPlayerRoleHolder
 import moe.rukamori.archivetune.extensions.setOffloadEnabled
 import moe.rukamori.archivetune.innertube.YouTube
-import moe.rukamori.archivetune.playback.ExoDeckController
 import moe.rukamori.archivetune.playback.PlaybackConstants
 import moe.rukamori.archivetune.playback.flacCacheKey
 import moe.rukamori.archivetune.playback.flacStreamCacheKey

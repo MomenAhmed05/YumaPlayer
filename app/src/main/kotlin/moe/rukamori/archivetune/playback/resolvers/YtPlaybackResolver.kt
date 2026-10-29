@@ -4,7 +4,7 @@
  * GPL-3.0 License | Contributors: see git history
  */
 
-package moe.rukamori.archivetune.playback
+package moe.rukamori.archivetune.playback.resolvers
 
 import androidx.media3.common.PlaybackException
 import androidx.media3.datasource.DataSpec
@@ -12,6 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.constants.AudioQuality
+import moe.rukamori.archivetune.playback.MusicService
 import moe.rukamori.archivetune.utils.YTPlayerUtils
 import moe.rukamori.archivetune.utils.retryWithoutPlaybackLoginContext
 import timber.log.Timber

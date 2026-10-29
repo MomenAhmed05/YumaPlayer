@@ -4,7 +4,7 @@
  * GPL-3.0 License | Contributors: see git history
  */
 
-package moe.rukamori.archivetune.playback
+package moe.rukamori.archivetune.playback.resolvers
 
 import androidx.media3.datasource.DataSpec
 import kotlinx.coroutines.CancellationException
@@ -19,6 +19,7 @@ import moe.rukamori.archivetune.extensions.findNextMediaItemById
 import moe.rukamori.archivetune.extensions.metadata
 import moe.rukamori.archivetune.extensions.toEnum
 import moe.rukamori.archivetune.models.MediaMetadata
+import moe.rukamori.archivetune.playback.MusicService
 import moe.rukamori.archivetune.utils.dataStore
 import moe.rukamori.archivetune.utils.get
 import timber.log.Timber

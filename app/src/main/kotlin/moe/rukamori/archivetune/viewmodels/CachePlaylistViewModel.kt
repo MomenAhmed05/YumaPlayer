@@ -35,7 +35,7 @@ import moe.rukamori.archivetune.playback.DownloadUtil
 import moe.rukamori.archivetune.playback.extractMediaIdFromCacheKey
 import moe.rukamori.archivetune.playback.flacCacheKey
 import moe.rukamori.archivetune.playback.flacStreamCacheKey
-import moe.rukamori.archivetune.playback.getFormatForSource
+import moe.rukamori.archivetune.playback.resolvers.getFormatForSource
 import moe.rukamori.archivetune.playback.saturatingAdd
 import moe.rukamori.archivetune.playback.ytStreamCacheKey
 import moe.rukamori.archivetune.ui.utils.formatFileSize
