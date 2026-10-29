@@ -13,6 +13,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,9 +23,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.supervisorScope
+import kotlinx.coroutines.sync.Mutex
 import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.aicontentfilter.FilterAiContentUseCase
 import moe.rukamori.archivetune.aicontentfilter.LoadAiContentFilterPolicyUseCase
@@ -117,6 +120,7 @@ constructor(
         private val isInitialLoadComplete = MutableStateFlow(false)
         private val loadError = MutableStateFlow<Int?>(null)
         private val isLoadingMore = MutableStateFlow(false)
+        private val loadMutex = Mutex()
 
         private val quickPicks = quickPicksManager.observe(viewModelScope)
         private val speedDialItems = MutableStateFlow<List<LocalItem>>(emptyList())
@@ -191,6 +195,7 @@ constructor(
                 )
             }
 
+        @OptIn(FlowPreview::class)
         val screenState: StateFlow<HomeScreenState> =
             combine(
                 homeContent,
@@ -215,7 +220,8 @@ constructor(
                     isRefreshing = loadingState.first,
                     isLoadingMore = loadingState.second,
                 )
-            }.stateIn(
+            }.debounce(100.milliseconds)
+            .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5_000),
                 initialValue = HomeScreenState.Loading,
@@ -268,36 +274,32 @@ constructor(
 
     private suspend fun load() {
             delay(150.milliseconds)
-            if (isLoading.value) return
+            if (!loadMutex.tryLock()) return
             isLoading.value = true
             loadError.value = null
 
             try {
                 supervisorScope {
                     launch {
-                        speedDialItems.value = localRecommendations.loadSpeedDial()
-                    }
-                    launch {
                         forgottenFavorites.value = localRecommendations.loadForgottenFavorites()
                     }
                     launch {
                         keepListening.value = localRecommendations.loadKeepListening()
                     }
-                    launch {
-                        feedCoordinator.loadHome()
-                            .onSuccess { page ->
-                                val prepared = prepareCommunityHomePage(page, allowStructuralFallback = true)
-                                homePage.value = prepared.homePage
-                                updateCommunitySection(prepared.communitySection)
-                            }.onFailure {
-                                reportException(it)
-                                loadError.value = R.string.error_unknown
-                                updateCommunitySection(null)
-                            }
-                    }
                 }
 
                 updateAllLocalItems()
+
+                feedCoordinator.loadHome()
+                    .onSuccess { page ->
+                        val prepared = prepareCommunityHomePage(page, allowStructuralFallback = true)
+                        homePage.value = prepared.homePage
+                        updateCommunitySection(prepared.communitySection)
+                    }.onFailure {
+                        reportException(it)
+                        loadError.value = R.string.error_unknown
+                        updateCommunitySection(null)
+                    }
 
                 viewModelScope.launch(Dispatchers.IO) {
                     similarRecommendations.value = similarRecommendationsUseCase()
@@ -315,6 +317,7 @@ constructor(
             } finally {
                 isInitialLoadComplete.value = true
                 isLoading.value = false
+                loadMutex.unlock()
             }
         }
 
