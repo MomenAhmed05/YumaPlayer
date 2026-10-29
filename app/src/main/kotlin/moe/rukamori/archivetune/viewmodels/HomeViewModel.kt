@@ -24,6 +24,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.supervisorScope
 import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.aicontentfilter.FilterAiContentUseCase
 import moe.rukamori.archivetune.aicontentfilter.LoadAiContentFilterPolicyUseCase
@@ -113,7 +114,9 @@ constructor(
     private val loadError = MutableStateFlow<Int?>(null)
     private val loadMutex = Mutex()
     private val accountMutex = Mutex()
-    private val accountGeneration = AtomicLong(0L)
+    private val stateLock = Any()
+    private val activeAccountGeneration = AtomicLong(0L)
+    private val readyAccountGeneration = AtomicLong(0L)
     @Volatile
     private var reloadRequested = false
     private var cacheHydrationJob: Job? = null
@@ -205,31 +208,39 @@ constructor(
     private suspend fun executeLoad() {
         isLoading.value = true
         loadError.value = null
-        val currentAccountGen = accountGeneration.get()
+        val currentAccountGen = activeAccountGeneration.get()
 
         try {
             supervisorScope {
                 launch {
                     val favorites = localRecommendations.loadForgottenFavorites()
-                    if (currentAccountGen == accountGeneration.get()) {
-                        forgottenFavorites.value = favorites
+                    synchronized(stateLock) {
+                        if (currentAccountGen == activeAccountGeneration.get()) {
+                            forgottenFavorites.value = favorites
+                        }
                     }
                 }
                 launch {
                     val keep = localRecommendations.loadKeepListening()
-                    if (currentAccountGen == accountGeneration.get()) {
-                        keepListening.value = keep
+                    synchronized(stateLock) {
+                        if (currentAccountGen == activeAccountGeneration.get()) {
+                            keepListening.value = keep
+                        }
                     }
                 }
             }
 
-            if (currentAccountGen == accountGeneration.get()) {
-                updateAllLocalItems()
+            synchronized(stateLock) {
+                if (currentAccountGen == activeAccountGeneration.get()) {
+                    updateAllLocalItems()
+                }
             }
 
             val networkResult =
                 accountMutex.withLock {
-                    if (currentAccountGen != accountGeneration.get()) {
+                    if (currentAccountGen != activeAccountGeneration.get() ||
+                        currentAccountGen != readyAccountGeneration.get()
+                    ) {
                         return@executeLoad
                     }
                     feedCoordinator.loadHome()
@@ -237,16 +248,21 @@ constructor(
 
             networkResult
                 .onSuccess { page ->
-                    accountMutex.withLock {
-                        if (currentAccountGen == accountGeneration.get()) {
-                            feedCoordinator.applyInitialHome(page)
-                            feedCache.saveHomePage(page)
+                    val prepared = feedCoordinator.prepareInitialHome(page)
+                    synchronized(stateLock) {
+                        if (currentAccountGen == activeAccountGeneration.get()) {
+                            feedCoordinator.publishPreparedInitialHome(prepared)
                             updateAllYtItems()
                         }
                     }
-                }.onFailure {
                     accountMutex.withLock {
-                        if (currentAccountGen == accountGeneration.get()) {
+                        if (currentAccountGen == activeAccountGeneration.get()) {
+                            feedCache.saveHomePage(page)
+                        }
+                    }
+                }.onFailure {
+                    synchronized(stateLock) {
+                        if (currentAccountGen == activeAccountGeneration.get()) {
                             reportException(it)
                             loadError.value = R.string.error_unknown
                             feedCoordinator.onInitialHomeFailure()
@@ -256,16 +272,16 @@ constructor(
 
             viewModelScope.launch(Dispatchers.IO) {
                 val similar = similarRecommendationsUseCase()
-                accountMutex.withLock {
-                    if (currentAccountGen == accountGeneration.get()) {
+                synchronized(stateLock) {
+                    if (currentAccountGen == activeAccountGeneration.get()) {
                         similarRecommendations.value = similar
                         updateAllYtItems()
                     }
                 }
             }
 
-            accountMutex.withLock {
-                if (currentAccountGen == accountGeneration.get()) {
+            synchronized(stateLock) {
+                if (currentAccountGen == activeAccountGeneration.get()) {
                     updateAllYtItems()
                     isInitialLoadComplete.value = true
                 }
@@ -274,12 +290,16 @@ constructor(
             throw e
         } catch (e: Exception) {
             reportException(e)
-            if (currentAccountGen == accountGeneration.get()) {
-                loadError.value = R.string.error_unknown
+            synchronized(stateLock) {
+                if (currentAccountGen == activeAccountGeneration.get()) {
+                    loadError.value = R.string.error_unknown
+                }
             }
         } finally {
-            if (currentAccountGen == accountGeneration.get()) {
-                isInitialLoadComplete.value = true
+            synchronized(stateLock) {
+                if (currentAccountGen == activeAccountGeneration.get()) {
+                    isInitialLoadComplete.value = true
+                }
             }
             isLoading.value = false
         }
@@ -319,17 +339,20 @@ constructor(
         account: SavedAccount,
         forceSyncOnSwitch: Boolean,
     ) {
-        val switchGen = accountGeneration.incrementAndGet()
+        val switchGen = activeAccountGeneration.incrementAndGet()
         cacheHydrationJob?.cancel()
-        feedCoordinator.clear()
-        similarRecommendations.value = null
-        updateAllYtItems()
+        synchronized(stateLock) {
+            feedCoordinator.clear()
+            similarRecommendations.value = null
+            updateAllYtItems()
+        }
         viewModelScope.launch(Dispatchers.IO) {
             accountMutex.withLock {
                 feedCache.clear()
                 accountCoordinator.switchAccount(account, forceSyncOnSwitch)
+                readyAccountGeneration.set(switchGen)
             }
-            if (switchGen == accountGeneration.get()) {
+            if (switchGen == activeAccountGeneration.get()) {
                 load()
             }
         }
@@ -339,17 +362,20 @@ constructor(
         channel: AccountChannelUiModel,
         forceSyncOnSwitch: Boolean,
     ) {
-        val switchGen = accountGeneration.incrementAndGet()
+        val switchGen = activeAccountGeneration.incrementAndGet()
         cacheHydrationJob?.cancel()
-        feedCoordinator.clear()
-        similarRecommendations.value = null
-        updateAllYtItems()
+        synchronized(stateLock) {
+            feedCoordinator.clear()
+            similarRecommendations.value = null
+            updateAllYtItems()
+        }
         viewModelScope.launch(Dispatchers.IO) {
             accountMutex.withLock {
                 feedCache.clear()
                 accountCoordinator.switchChannel(channel, forceSyncOnSwitch)
+                readyAccountGeneration.set(switchGen)
             }
-            if (switchGen == accountGeneration.get()) {
+            if (switchGen == activeAccountGeneration.get()) {
                 load()
             }
         }
@@ -360,14 +386,15 @@ constructor(
             updateAllYtItems()
         }
 
-        val initAccountGen = accountGeneration.get()
+        val initAccountGen = activeAccountGeneration.get()
         cacheHydrationJob =
             viewModelScope.launch(Dispatchers.IO) {
                 val cached = feedCache.loadHomePage()
                 if (cached != null) {
-                    accountMutex.withLock {
-                        if (initAccountGen == accountGeneration.get()) {
-                            feedCoordinator.applyInitialHome(cached)
+                    val prepared = feedCoordinator.prepareInitialHome(cached)
+                    synchronized(stateLock) {
+                        if (initAccountGen == activeAccountGeneration.get()) {
+                            feedCoordinator.publishPreparedInitialHome(prepared)
                             updateAllYtItems()
                         }
                     }

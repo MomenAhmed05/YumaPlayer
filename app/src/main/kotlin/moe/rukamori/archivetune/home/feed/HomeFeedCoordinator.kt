@@ -26,6 +26,7 @@ import moe.rukamori.archivetune.extensions.filterBlockedArtists
 import moe.rukamori.archivetune.home.FilterCommunityPreviewsUseCase
 import moe.rukamori.archivetune.home.LoadCommunityPlaylistPreviewsUseCase
 import moe.rukamori.archivetune.home.PrepareCommunityHomePageUseCase
+import moe.rukamori.archivetune.home.PreparedCommunityHomePage
 import moe.rukamori.archivetune.innertube.YouTube
 import moe.rukamori.archivetune.innertube.models.filterExplicit
 import moe.rukamori.archivetune.innertube.models.filterVideo
@@ -88,11 +89,18 @@ class HomeFeedCoordinator
             }
         }
 
-        fun applyInitialHome(page: HomePage) {
+        fun prepareInitialHome(page: HomePage): PreparedCommunityHomePage =
+            prepareCommunityHomePage(page, allowStructuralFallback = true)
+
+        fun publishPreparedInitialHome(prepared: PreparedCommunityHomePage) {
             feedDataGeneration.incrementAndGet()
-            val prepared = prepareCommunityHomePage(page, allowStructuralFallback = true)
             _homePage.value = prepared.homePage
             updateCommunitySection(prepared.communitySection)
+        }
+
+        fun applyInitialHome(page: HomePage) {
+            val prepared = prepareInitialHome(page)
+            publishPreparedInitialHome(prepared)
         }
 
         fun onInitialHomeFailure() {

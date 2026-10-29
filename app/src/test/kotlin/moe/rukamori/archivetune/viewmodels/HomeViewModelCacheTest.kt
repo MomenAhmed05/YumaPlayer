@@ -20,15 +20,12 @@ import io.mockk.mockkStatic
 import io.mockk.unmockkAll
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
-import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
 import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.aicontentfilter.AiContentFilterPolicy
@@ -44,7 +41,7 @@ import moe.rukamori.archivetune.home.LoadCommunityPlaylistPreviewsUseCase
 import moe.rukamori.archivetune.home.ObserveHomePresentationPreferencesUseCase
 import moe.rukamori.archivetune.home.PrepareCommunityHomePageUseCase
 import moe.rukamori.archivetune.home.PreparedCommunityHomePage
-import moe.rukamori.archivetune.home.QuickPicksDisplayMode
+import moe.rukamori.archivetune.constants.QuickPicksDisplayMode
 import moe.rukamori.archivetune.home.account.HomeAccountCoordinator
 import moe.rukamori.archivetune.home.feed.HomeFeedCache
 import moe.rukamori.archivetune.home.feed.HomeFeedCoordinator
@@ -68,8 +65,8 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicInteger
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class HomeViewModelCacheTest {
 
     private val context: Context = mockk(relaxed = true)
@@ -84,12 +81,14 @@ class HomeViewModelCacheTest {
     private val filterCommunityUseCase: FilterCommunityPreviewsUseCase = mockk(relaxed = true)
     private val feedCache: HomeFeedCache = mockk(relaxed = true)
 
-    private val testDispatcher = UnconfinedTestDispatcher()
+    private val localRecommendations: HomeLocalRecommendationsUseCase = mockk()
+    private val quickPicksManager: HomeQuickPicksManager = mockk()
+    private val similarRecommendationsUseCase: HomeSimilarRecommendationsUseCase = mockk()
+
     private val viewModelStore = ViewModelStore()
 
     @Before
     fun setUp() {
-        Dispatchers.setMain(testDispatcher)
         mockkObject(YouTube)
         mockkStatic("moe.rukamori.archivetune.utils.DataStoreKt")
 
@@ -106,6 +105,7 @@ class HomeViewModelCacheTest {
             ),
         )
         coEvery { loadAiPolicy() } returns AiContentFilterPolicy.Disabled
+        coEvery { switchSavedYouTubeAccount(any()) } returns Result.success(mockk(relaxed = true))
 
         every { prepareCommunityUseCase(any(), any()) } answers {
             PreparedCommunityHomePage(homePage = firstArg(), communitySection = null)
@@ -114,21 +114,17 @@ class HomeViewModelCacheTest {
             PreparedCommunityHomePage(homePage = firstArg(), communitySection = null)
         }
 
-        coEvery { database.getBlockedArtistIds() } returns emptyList()
-        every { database.quickPicks() } returns flowOf(emptyList())
-        every { database.recentSongs(any()) } returns flowOf(emptyList())
-        every { database.allSongs() } returns flowOf(emptyList())
-        every { database.hasRelatedSongs(any()) } returns false
-        every { database.forgottenFavorites() } returns flowOf(emptyList())
-        every { database.mostPlayedSongs(any(), any(), any()) } returns flowOf(emptyList())
-        every { database.mostPlayedAlbums(any(), any(), any()) } returns flowOf(emptyList())
-        every { database.mostPlayedArtists(any()) } returns flowOf(emptyList())
+        coEvery { localRecommendations.loadForgottenFavorites() } returns emptyList()
+        coEvery { localRecommendations.loadKeepListening() } returns emptyList()
+        coEvery { localRecommendations.loadSpeedDial() } returns emptyList()
+        every { quickPicksManager.observe(any()) } returns MutableStateFlow(emptyList())
+        coEvery { quickPicksManager.refresh() } returns emptyList()
+        coEvery { similarRecommendationsUseCase() } returns emptyList()
     }
 
     @After
     fun tearDown() {
         viewModelStore.clear()
-        Dispatchers.resetMain()
         unmockkAll()
     }
 
@@ -159,24 +155,27 @@ class HomeViewModelCacheTest {
         )
 
     private fun createViewModel(): HomeViewModel {
+        val coordinator =
+            HomeFeedCoordinator(
+                context = context,
+                database = database,
+                loadAiContentFilterPolicy = loadAiPolicy,
+                filterAiContent = filterAiContent,
+                prepareCommunityHomePage = prepareCommunityUseCase,
+                loadCommunityPlaylistPreviews = loadCommunityUseCase,
+                filterCommunityPreviews = filterCommunityUseCase,
+            )
+
         val viewModel =
             HomeViewModel(
                 context = context,
                 syncUtils = syncUtils,
                 observeHomePresentationPreferences = observePreferences,
-                quickPicksManager = HomeQuickPicksManager(context, database),
-                localRecommendations = HomeLocalRecommendationsUseCase(context, database),
-                similarRecommendationsUseCase = HomeSimilarRecommendationsUseCase(context, database, loadAiPolicy, filterAiContent),
+                quickPicksManager = quickPicksManager,
+                localRecommendations = localRecommendations,
+                similarRecommendationsUseCase = similarRecommendationsUseCase,
                 accountCoordinator = HomeAccountCoordinator(context, syncUtils, switchSavedYouTubeAccount),
-                feedCoordinator = HomeFeedCoordinator(
-                    context = context,
-                    database = database,
-                    loadAiContentFilterPolicy = loadAiPolicy,
-                    filterAiContent = filterAiContent,
-                    prepareCommunityHomePage = prepareCommunityUseCase,
-                    loadCommunityPlaylistPreviews = loadCommunityUseCase,
-                    filterCommunityPreviews = filterCommunityUseCase,
-                ),
+                feedCoordinator = coordinator,
                 stateComposer = HomeStateComposer(),
                 feedCache = feedCache,
             )
@@ -185,7 +184,7 @@ class HomeViewModelCacheTest {
     }
 
     @Test
-    fun startupCacheHydration_appliesCachedHome_beforeNetwork() = runTest {
+    fun startupCacheHydration_appliesCachedHome_beforeNetwork() = runBlocking(Dispatchers.Default) {
         val cachedPage = samplePage("Cached Section", "song_cached")
         val networkPage = samplePage("Network Section", "song_network")
 
@@ -203,7 +202,6 @@ class HomeViewModelCacheTest {
         val collectorJob = launch { viewModel.screenState.collect {} }
 
         try {
-            // Activate WhileSubscribed and await Success with cached content
             val cachedSuccess = withTimeout(5000) {
                 viewModel.screenState.filterIsInstance<HomeScreenState.Success>().first {
                     it.uiState.homePage?.sections?.any { s -> s.title == "Cached Section" } == true
@@ -212,11 +210,9 @@ class HomeViewModelCacheTest {
             assertNotNull(cachedSuccess)
             assertTrue(viewModel.allYtItems.value.any { it.id == "song_cached" })
 
-            // Allow network to proceed
             networkProceed.complete(Unit)
             networkDone.await()
 
-            // Fresh network replaces cache
             val freshSuccess = withTimeout(5000) {
                 viewModel.screenState.filterIsInstance<HomeScreenState.Success>().first {
                     it.uiState.homePage?.sections?.any { s -> s.title == "Network Section" } == true
@@ -231,12 +227,13 @@ class HomeViewModelCacheTest {
     }
 
     @Test
-    fun cacheBeforeNetworkOrdering_networkCannotStartUntilHydrationCompletes() = runTest {
+    fun cacheBeforeNetworkOrdering_networkCannotStartUntilHydrationCompletes() = runBlocking(Dispatchers.Default) {
         val cachedPage = samplePage("Hydrated Page", "song_hydrated")
         val networkPage = samplePage("Network Page", "song_net")
 
         val cacheGate = CompletableDeferred<Unit>()
         val networkStarted = AtomicBoolean(false)
+        val networkDone = CompletableDeferred<Unit>()
 
         coEvery { feedCache.loadHomePage() } coAnswers {
             cacheGate.await()
@@ -244,6 +241,7 @@ class HomeViewModelCacheTest {
         }
         coEvery { YouTube.home() } coAnswers {
             networkStarted.set(true)
+            networkDone.complete(Unit)
             Result.success(networkPage)
         }
 
@@ -251,13 +249,11 @@ class HomeViewModelCacheTest {
         val collectorJob = launch { viewModel.screenState.collect {} }
 
         try {
-            // Network must not have started while cache hydration is suspended
             assertFalse(networkStarted.get())
 
-            // Release cache gate
             cacheGate.complete(Unit)
+            networkDone.await()
 
-            // Cache applied, then network completes
             withTimeout(5000) {
                 viewModel.screenState.filterIsInstance<HomeScreenState.Success>().first {
                     it.uiState.homePage?.sections?.any { s -> s.title == "Network Page" } == true
@@ -270,23 +266,32 @@ class HomeViewModelCacheTest {
     }
 
     @Test
-    fun accountSwitch_staleNetworkResponse_doesNotApply_or_persist() = runTest {
+    fun accountSwitch_staleNetworkResponse_doesNotApply_or_persist() = runBlocking(Dispatchers.Default) {
         val staleNetworkPage = samplePage("Stale Account Feed", "stale_song")
-        val networkGate = CompletableDeferred<Unit>()
-        val networkFinished = CompletableDeferred<Unit>()
+        val freshAccountPage = samplePage("Fresh Account Feed", "fresh_song")
+
+        val firstNetworkStarted = CompletableDeferred<Unit>()
+        val firstNetworkGate = CompletableDeferred<Unit>()
+        val callCount = AtomicInteger(0)
 
         coEvery { feedCache.loadHomePage() } returns null
         coEvery { YouTube.home() } coAnswers {
-            networkGate.await()
-            networkFinished.complete(Unit)
-            Result.success(staleNetworkPage)
+            val count = callCount.incrementAndGet()
+            if (count == 1) {
+                firstNetworkStarted.complete(Unit)
+                firstNetworkGate.await()
+                Result.success(staleNetworkPage)
+            } else {
+                Result.success(freshAccountPage)
+            }
         }
 
         val viewModel = createViewModel()
         val collectorJob = launch { viewModel.screenState.collect {} }
 
         try {
-            // Switch account while network request is in flight
+            firstNetworkStarted.await()
+
             val targetAccount = SavedAccount(
                 id = "acc_2",
                 name = "Account 2",
@@ -300,23 +305,29 @@ class HomeViewModelCacheTest {
             )
             viewModel.switchToAccount(targetAccount, forceSyncOnSwitch = false)
 
-            // Old network finishes
-            networkGate.complete(Unit)
-            networkFinished.await()
+            firstNetworkGate.complete(Unit)
 
-            // Verify stale network response was never saved to feedCache or applied
+            withTimeout(5000) {
+                viewModel.screenState.filterIsInstance<HomeScreenState.Success>().first {
+                    it.uiState.homePage?.sections?.any { s -> s.title == "Fresh Account Feed" } == true
+                }
+            }
+
             coVerify(exactly = 0) { feedCache.saveHomePage(staleNetworkPage) }
+            coVerify(atLeast = 1) { feedCache.saveHomePage(freshAccountPage) }
             assertFalse(viewModel.allYtItems.value.any { it.id == "stale_song" })
+            assertTrue(viewModel.allYtItems.value.any { it.id == "fresh_song" })
         } finally {
             collectorJob.cancel()
         }
     }
 
     @Test
-    fun accountSwitch_racingWithInFlightSave_clearsCacheAndDoesNotRetainOldPage() = runTest {
+    fun accountSwitch_racingWithInFlightSave_clearsCacheAndDoesNotRetainOldPage() = runBlocking(Dispatchers.Default) {
         val oldPage = samplePage("Old Account Page", "old_song")
         val saveEntered = CompletableDeferred<Unit>()
         val saveRelease = CompletableDeferred<Unit>()
+        val clearInvoked = CompletableDeferred<Unit>()
 
         coEvery { feedCache.loadHomePage() } returns null
         coEvery { YouTube.home() } returns Result.success(oldPage)
@@ -324,15 +335,16 @@ class HomeViewModelCacheTest {
             saveEntered.complete(Unit)
             saveRelease.await()
         }
+        coEvery { feedCache.clear() } coAnswers {
+            clearInvoked.complete(Unit)
+        }
 
         val viewModel = createViewModel()
         val collectorJob = launch { viewModel.screenState.collect {} }
 
         try {
-            // Wait until saveHomePage is actively running
             saveEntered.await()
 
-            // Concurrently switch account while save is suspended
             val newAccount = SavedAccount(
                 id = "acc_new",
                 name = "New Account",
@@ -346,12 +358,10 @@ class HomeViewModelCacheTest {
             )
             viewModel.switchToAccount(newAccount, forceSyncOnSwitch = false)
 
-            // Release the save
             saveRelease.complete(Unit)
+            clearInvoked.await()
 
-            // Switch clear must run after save finishes and clear must be invoked
             withTimeout(5000) {
-                // Ensure feedCoordinator items are cleared
                 while (viewModel.allYtItems.value.any { it.id == "old_song" }) {
                     kotlinx.coroutines.delay(10)
                 }
@@ -364,23 +374,25 @@ class HomeViewModelCacheTest {
     }
 
     @Test
-    fun queuedRefresh_executesReload_whenLoadAlreadyRunning() = runTest {
+    fun queuedRefresh_executesReload_whenLoadAlreadyRunning() = runBlocking(Dispatchers.Default) {
         val firstPage = samplePage("First Load", "song_first")
         val secondPage = samplePage("Second Load", "song_second")
 
-        val firstGate = CompletableDeferred<Unit>()
         val firstStarted = CompletableDeferred<Unit>()
+        val firstGate = CompletableDeferred<Unit>()
+        val secondStarted = CompletableDeferred<Unit>()
         val secondDone = CompletableDeferred<Unit>()
-        var callCount = 0
+        val callCount = AtomicInteger(0)
 
         coEvery { feedCache.loadHomePage() } returns null
         coEvery { YouTube.home() } coAnswers {
-            callCount++
-            if (callCount == 1) {
+            val count = callCount.incrementAndGet()
+            if (count == 1) {
                 firstStarted.complete(Unit)
                 firstGate.await()
                 Result.success(firstPage)
             } else {
+                secondStarted.complete(Unit)
                 secondDone.complete(Unit)
                 Result.success(secondPage)
             }
@@ -392,15 +404,13 @@ class HomeViewModelCacheTest {
         try {
             firstStarted.await()
 
-            // User triggers refresh while first load is running
             viewModel.onAction(HomeAction.Refresh)
 
-            // Release first load
             firstGate.complete(Unit)
 
-            // Second queued pass must execute
+            secondStarted.await()
             secondDone.await()
-            assertEquals(2, callCount)
+            assertEquals(2, callCount.get())
 
             withTimeout(5000) {
                 viewModel.screenState.filterIsInstance<HomeScreenState.Success>().first {
@@ -408,6 +418,121 @@ class HomeViewModelCacheTest {
                 }
             }
             assertTrue(viewModel.allYtItems.value.any { it.id == "song_second" })
+        } finally {
+            collectorJob.cancel()
+        }
+    }
+
+    @Test
+    fun oldPreparationAndPublication_racingWithAccountSwitch_doesNotPublishOrRetainOldFeed() = runBlocking(Dispatchers.Default) {
+        val oldPage = samplePage("Old Account Page", "old_racing_song")
+        val prepEntered = CompletableDeferred<Unit>()
+        val prepRelease = CompletableDeferred<Unit>()
+
+        coEvery { feedCache.loadHomePage() } returns null
+        coEvery { YouTube.home() } returns Result.success(oldPage)
+        every { prepareCommunityUseCase(oldPage, any()) } answers {
+            prepEntered.complete(Unit)
+            runBlocking { prepRelease.await() }
+            PreparedCommunityHomePage(homePage = oldPage, communitySection = null)
+        }
+
+        val viewModel = createViewModel()
+        val collectorJob = launch { viewModel.screenState.collect {} }
+
+        try {
+            prepEntered.await()
+
+            val newAccount = SavedAccount(
+                id = "acc_switch_prep",
+                name = "New Account",
+                email = "new@example.com",
+                channelHandle = "@new",
+                innerTubeCookie = "cookie_new",
+                visitorData = "",
+                dataSyncId = "sync_new",
+                ytmSync = true,
+                selectedYtmPlaylists = "",
+            )
+            viewModel.switchToAccount(newAccount, forceSyncOnSwitch = false)
+
+            prepRelease.complete(Unit)
+
+            withTimeout(5000) {
+                while (viewModel.allYtItems.value.any { it.id == "old_racing_song" }) {
+                    kotlinx.coroutines.delay(10)
+                }
+            }
+            coVerify(exactly = 0) { feedCache.saveHomePage(oldPage) }
+            assertFalse(viewModel.allYtItems.value.any { it.id == "old_racing_song" })
+        } finally {
+            collectorJob.cancel()
+        }
+    }
+
+    @Test
+    fun newGenerationLoad_requestedBeforeCredentialsSwitchCompletes_waitsForReadyCredentials() = runBlocking(Dispatchers.Default) {
+        val initialPage = samplePage("Init Page", "song_init")
+        val newAccountPage = samplePage("New Account Page", "song_new_acc")
+
+        val switchEntered = CompletableDeferred<Unit>()
+        val switchRelease = CompletableDeferred<Unit>()
+        val callCount = AtomicInteger(0)
+
+        coEvery { feedCache.loadHomePage() } returns null
+        coEvery { switchSavedYouTubeAccount(any()) } coAnswers {
+            switchEntered.complete(Unit)
+            switchRelease.await()
+            Result.success(mockk(relaxed = true))
+        }
+        coEvery { YouTube.home() } coAnswers {
+            val count = callCount.incrementAndGet()
+            if (count == 1) {
+                Result.success(initialPage)
+            } else {
+                Result.success(newAccountPage)
+            }
+        }
+
+        val viewModel = createViewModel()
+        val collectorJob = launch { viewModel.screenState.collect {} }
+
+        try {
+            withTimeout(5000) {
+                viewModel.screenState.filterIsInstance<HomeScreenState.Success>().first {
+                    it.uiState.homePage?.sections?.any { s -> s.title == "Init Page" } == true
+                }
+            }
+            assertEquals(1, callCount.get())
+
+            val newAccount = SavedAccount(
+                id = "acc_in_flight",
+                name = "In Flight Account",
+                email = "inflight@example.com",
+                channelHandle = "@inflight",
+                innerTubeCookie = "cookie_inflight",
+                visitorData = "",
+                dataSyncId = "sync_inflight",
+                ytmSync = true,
+                selectedYtmPlaylists = "",
+            )
+            viewModel.switchToAccount(newAccount, forceSyncOnSwitch = false)
+            switchEntered.await()
+
+            viewModel.onAction(HomeAction.Refresh)
+
+            kotlinx.coroutines.delay(100)
+            assertEquals(1, callCount.get())
+
+            switchRelease.complete(Unit)
+
+            withTimeout(5000) {
+                viewModel.screenState.filterIsInstance<HomeScreenState.Success>().first {
+                    it.uiState.homePage?.sections?.any { s -> s.title == "New Account Page" } == true
+                }
+            }
+            assertTrue(callCount.get() >= 2)
+            assertTrue(viewModel.allYtItems.value.any { it.id == "song_new_acc" })
         } finally {
             collectorJob.cancel()
         }
