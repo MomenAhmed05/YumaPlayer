@@ -4,7 +4,7 @@
  * GPL-3.0 License | Contributors: see git history
  */
 
-package moe.rukamori.archivetune.home
+package moe.rukamori.archivetune.home.feed
 
 import android.content.Context
 import androidx.datastore.core.DataStore
@@ -27,7 +27,10 @@ import moe.rukamori.archivetune.aicontentfilter.AiContentFilterPolicy
 import moe.rukamori.archivetune.aicontentfilter.FilterAiContentUseCase
 import moe.rukamori.archivetune.aicontentfilter.LoadAiContentFilterPolicyUseCase
 import moe.rukamori.archivetune.db.MusicDatabase
-import moe.rukamori.archivetune.home.feed.HomeFeedCoordinator
+import moe.rukamori.archivetune.home.FilterCommunityPreviewsUseCase
+import moe.rukamori.archivetune.home.LoadCommunityPlaylistPreviewsUseCase
+import moe.rukamori.archivetune.home.PrepareCommunityHomePageUseCase
+import moe.rukamori.archivetune.home.PreparedCommunityHomePage
 import moe.rukamori.archivetune.innertube.YouTube
 import moe.rukamori.archivetune.innertube.models.BrowseEndpoint
 import moe.rukamori.archivetune.innertube.pages.HomePage

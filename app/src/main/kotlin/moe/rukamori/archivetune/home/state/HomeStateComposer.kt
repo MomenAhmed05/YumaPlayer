@@ -27,7 +27,7 @@ import kotlin.time.Duration.Companion.milliseconds
 class HomeStateComposer
     @Inject
     constructor() {
-        fun combineLocalContent(
+        private fun combineLocalContent(
             quickPicks: Flow<List<Song>?>,
             speedDialItems: Flow<List<LocalItem>>,
             forgottenFavorites: Flow<List<Song>?>,
@@ -47,7 +47,7 @@ class HomeStateComposer
                 )
             }
 
-        fun combineRemoteContent(
+        private fun combineRemoteContent(
             homePage: Flow<HomePage?>,
             similarRecommendations: Flow<List<SimilarRecommendation>?>,
             accountPlaylists: Flow<List<PlaylistItem>?>,

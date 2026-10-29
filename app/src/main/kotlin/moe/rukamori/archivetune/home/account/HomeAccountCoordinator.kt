@@ -8,12 +8,7 @@ package moe.rukamori.archivetune.home.account
 
 import android.content.Context
 import androidx.compose.ui.graphics.Color
-import androidx.core.graphics.toColorInt
 import androidx.datastore.preferences.core.edit
-import coil3.ImageLoader
-import coil3.request.ImageRequest
-import coil3.request.allowHardware
-import coil3.toBitmap
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
@@ -24,7 +19,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -47,7 +41,6 @@ import moe.rukamori.archivetune.innertube.models.PlaylistItem
 import moe.rukamori.archivetune.innertube.models.withHighResAvatar
 import moe.rukamori.archivetune.innertube.utils.completed
 import moe.rukamori.archivetune.innertube.utils.hasYouTubeLoginCookie
-import moe.rukamori.archivetune.utils.ColorExtractor
 import moe.rukamori.archivetune.utils.SavedAccount
 import moe.rukamori.archivetune.utils.SyncUtils
 import moe.rukamori.archivetune.utils.dataStore
@@ -78,15 +71,15 @@ class HomeAccountCoordinator
         private val _accountPlaylists = MutableStateFlow<List<PlaylistItem>?>(null)
         val accountPlaylists: StateFlow<List<PlaylistItem>?> = _accountPlaylists.asStateFlow()
 
-        private val _accountAccentColor = MutableStateFlow<Color?>(null)
-        val accountAccentColor: StateFlow<Color?> = _accountAccentColor.asStateFlow()
+        private val accentColorObserver = HomeAccountAccentColorObserver(context, accountImageUrl)
+        val accountAccentColor: StateFlow<Color?> = accentColorObserver.accountAccentColor
 
         fun clearAccountData() {
             _accountName.value = ""
             _accountImageUrl.value = null
             _accountPlaylists.value = null
             _accountChannelsState.value = AccountChannelsState.Empty
-            _accountAccentColor.value = null
+            accentColorObserver.clear()
         }
 
         private fun prepareYouTubeAccount(cookie: String): Boolean =
@@ -362,76 +355,7 @@ class HomeAccountCoordinator
             }
         }
 
-        private val accentColorLock = Any()
-        private var activeAccentColorJob: Job? = null
-        private var activeAccentColorOwner: Any? = null
-
         fun observeAccentColor(scope: CoroutineScope) {
-            val callerJob = scope.coroutineContext[Job]
-            if (callerJob != null && !callerJob.isActive) {
-                return
-            }
-
-            synchronized(accentColorLock) {
-                activeAccentColorJob?.cancel()
-                _accountAccentColor.value = null
-
-                val ownerKey: Any = callerJob ?: scope
-                activeAccentColorOwner = ownerKey
-
-                val launchedJob =
-                    scope.launch(Dispatchers.IO) {
-                        val imageLoader by lazy { ImageLoader(context) }
-                        accountImageUrl.collectLatest { url ->
-                            if (url.isNullOrBlank()) {
-                                _accountAccentColor.value = null
-                                return@collectLatest
-                            }
-
-                            try {
-                                val request =
-                                    ImageRequest.Builder(context)
-                                        .data(url)
-                                        .size(96, 96)
-                                        .allowHardware(false)
-                                        .build()
-
-                                val result = imageLoader.execute(request)
-                                val bitmap = result.image?.toBitmap()
-
-                                if (bitmap != null) {
-                                    val pixels = IntArray(bitmap.width * bitmap.height)
-                                    bitmap.getPixels(pixels, 0, bitmap.width, 0, 0, bitmap.width, bitmap.height)
-                                    val hex = ColorExtractor.extractVibrantHex(pixels)
-                                    val extractedColor =
-                                        hex?.let {
-                                            try {
-                                                Color(it.toColorInt())
-                                            } catch (_: Exception) {
-                                                null
-                                            }
-                                        }
-                                    _accountAccentColor.value = extractedColor
-                                }
-                            } catch (e: CancellationException) {
-                                throw e
-                            } catch (e: Exception) {
-                                Timber.tag("HomeAccountCoordinator").w(e, "Failed to extract avatar color")
-                            }
-                        }
-                    }
-                activeAccentColorJob = launchedJob
-
-                callerJob?.invokeOnCompletion {
-                    synchronized(accentColorLock) {
-                        if (activeAccentColorOwner === ownerKey && activeAccentColorJob === launchedJob) {
-                            activeAccentColorJob?.cancel()
-                            activeAccentColorJob = null
-                            activeAccentColorOwner = null
-                            _accountAccentColor.value = null
-                        }
-                    }
-                }
-            }
+            accentColorObserver.observe(scope)
         }
     }

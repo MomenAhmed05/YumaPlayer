@@ -24,7 +24,6 @@ import moe.rukamori.archivetune.constants.HideVideoKey
 import moe.rukamori.archivetune.db.MusicDatabase
 import moe.rukamori.archivetune.extensions.filterBlockedArtists
 import moe.rukamori.archivetune.home.FilterCommunityPreviewsUseCase
-import moe.rukamori.archivetune.home.HomeRepository
 import moe.rukamori.archivetune.home.LoadCommunityPlaylistPreviewsUseCase
 import moe.rukamori.archivetune.home.PrepareCommunityHomePageUseCase
 import moe.rukamori.archivetune.innertube.YouTube
@@ -49,21 +48,6 @@ class HomeFeedCoordinator
         private val loadCommunityPlaylistPreviews: LoadCommunityPlaylistPreviewsUseCase,
         private val filterCommunityPreviews: FilterCommunityPreviewsUseCase,
     ) {
-        constructor(
-            context: Context,
-            database: MusicDatabase,
-            loadAiContentFilterPolicy: LoadAiContentFilterPolicyUseCase,
-            filterAiContent: FilterAiContentUseCase,
-        ) : this(
-            context = context,
-            database = database,
-            loadAiContentFilterPolicy = loadAiContentFilterPolicy,
-            filterAiContent = filterAiContent,
-            prepareCommunityHomePage = PrepareCommunityHomePageUseCase(context),
-            loadCommunityPlaylistPreviews = LoadCommunityPlaylistPreviewsUseCase(HomeRepository(context)),
-            filterCommunityPreviews = FilterCommunityPreviewsUseCase(context, database, loadAiContentFilterPolicy, filterAiContent),
-        )
-
         private val _homePage = MutableStateFlow<HomePage?>(null)
         val homePage: StateFlow<HomePage?> = _homePage.asStateFlow()
 
@@ -111,7 +95,7 @@ class HomeFeedCoordinator
             updateCommunitySection(null)
         }
 
-        fun updateCommunitySection(section: HomePage.Section?) {
+        internal fun updateCommunitySection(section: HomePage.Section?) {
             val generation = communityPreviewGeneration.incrementAndGet()
             communityPreviewJob?.cancel()
             communityPreviewJob = null
@@ -246,7 +230,7 @@ class HomeFeedCoordinator
                 }
             }
 
-        suspend fun loadMore(continuation: String): Result<HomePage> =
+        private suspend fun loadMore(continuation: String): Result<HomePage> =
             withContext(Dispatchers.IO) {
                 YouTube.home(continuation = continuation).map { page ->
                     filterHomePageSections(page, filterChips = false)
