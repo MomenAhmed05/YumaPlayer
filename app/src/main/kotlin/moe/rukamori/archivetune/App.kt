@@ -150,7 +150,6 @@ class App :
                     ),
                 store = File(filesDir, "spotify_gql_hashes.json"),
             )
-        refresher.applyLearned()
         Spotify.hashRefresher = refresher
     }
 
