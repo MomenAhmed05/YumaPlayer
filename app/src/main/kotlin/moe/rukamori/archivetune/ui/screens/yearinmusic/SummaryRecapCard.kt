@@ -38,8 +38,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import moe.rukamori.archivetune.R
-import moe.rukamori.archivetune.ui.screens.RecapInk
-import moe.rukamori.archivetune.ui.screens.RecapLime
 
 @Composable
 internal fun SummaryRecapCard(

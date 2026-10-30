@@ -61,7 +61,7 @@ import moe.rukamori.archivetune.ui.scaffold.ScaffoldNavigationRail
 import moe.rukamori.archivetune.ui.scaffold.ScaffoldSearchBarHost
 import moe.rukamori.archivetune.ui.scaffold.ScaffoldTopAppBar
 import moe.rukamori.archivetune.ui.scaffold.rememberScaffoldAppState
-import moe.rukamori.archivetune.ui.screens.isArtworkDetailRoute
+import moe.rukamori.archivetune.ui.navigation.isArtworkDetailRoute
 import moe.rukamori.archivetune.ui.system.SystemBarController
 import moe.rukamori.archivetune.ui.system.rememberBarScrollVisibility
 import moe.rukamori.archivetune.ui.utils.LocalGlobalVisibility

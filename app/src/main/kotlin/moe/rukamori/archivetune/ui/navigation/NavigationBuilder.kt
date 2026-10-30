@@ -4,7 +4,7 @@
  * GPL-3.0 License | Contributors: see git history
  */
 
-package moe.rukamori.archivetune.ui.screens
+package moe.rukamori.archivetune.ui.navigation
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarScrollBehavior
@@ -18,13 +18,26 @@ import androidx.navigation.navArgument
 import moe.rukamori.archivetune.constants.SpotifySpDcKey
 import moe.rukamori.archivetune.constants.UseSpotifyHomeKey
 import moe.rukamori.archivetune.musicrecognition.MusicRecognitionRoute
+import moe.rukamori.archivetune.ui.screens.Screens
+import moe.rukamori.archivetune.ui.screens.account.AccountScreen
+import moe.rukamori.archivetune.ui.screens.browse.BrowseScreen
+import moe.rukamori.archivetune.ui.screens.charts.ChartsScreen
+import moe.rukamori.archivetune.ui.screens.history.HistoryScreen
+import moe.rukamori.archivetune.ui.screens.home.HomeScreen
 import moe.rukamori.archivetune.ui.screens.library.LibraryScreen
 import moe.rukamori.archivetune.ui.screens.library.LocalSongScreen
+import moe.rukamori.archivetune.ui.screens.moodandgenres.MoodAndGenresScreen
 import moe.rukamori.archivetune.ui.screens.musicrecognition.MusicRecognitionScreen
+import moe.rukamori.archivetune.ui.screens.newrelease.NewReleaseScreen
+import moe.rukamori.archivetune.ui.screens.news.NewsScreen
+import moe.rukamori.archivetune.ui.screens.news.ViewNewsScreen
 import moe.rukamori.archivetune.ui.screens.search.OnlineSearchResult
 import moe.rukamori.archivetune.ui.screens.search.OnlineSearchResultArgument
 import moe.rukamori.archivetune.ui.screens.search.OnlineSearchResultRoute
 import moe.rukamori.archivetune.ui.screens.search.SearchScreen
+import moe.rukamori.archivetune.ui.screens.spotifyhome.SpotifyHomeScreen
+import moe.rukamori.archivetune.ui.screens.stats.route.StatsScreen
+import moe.rukamori.archivetune.ui.screens.yearinmusic.YearInMusicScreen
 import moe.rukamori.archivetune.ui.state.UpdateState
 import moe.rukamori.archivetune.utils.rememberPreference
 

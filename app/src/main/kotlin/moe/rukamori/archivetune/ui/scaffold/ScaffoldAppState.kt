@@ -46,7 +46,7 @@ import moe.rukamori.archivetune.ui.haptics.YumaHapticsImpl
 import moe.rukamori.archivetune.ui.main.ACTION_LIBRARY
 import moe.rukamori.archivetune.ui.main.ACTION_SEARCH
 import moe.rukamori.archivetune.ui.screens.Screens
-import moe.rukamori.archivetune.ui.screens.findTabForRoute
+import moe.rukamori.archivetune.ui.navigation.findTabForRoute
 import moe.rukamori.archivetune.ui.screens.settings.NavigationTab
 import moe.rukamori.archivetune.ui.settings.SettingsDimensions
 import moe.rukamori.archivetune.ui.system.rememberPlayerAwareWindowInsets

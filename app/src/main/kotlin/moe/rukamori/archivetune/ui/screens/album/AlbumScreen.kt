@@ -4,7 +4,7 @@
  * GPL-3.0 License | Contributors: see git history
  */
 
-package moe.rukamori.archivetune.ui.screens
+package moe.rukamori.archivetune.ui.screens.album
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

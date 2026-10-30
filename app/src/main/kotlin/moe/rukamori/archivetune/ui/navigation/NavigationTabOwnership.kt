@@ -1,4 +1,6 @@
-package moe.rukamori.archivetune.ui.screens
+package moe.rukamori.archivetune.ui.navigation
+
+import moe.rukamori.archivetune.ui.screens.Screens
 
 internal fun findTabForRoute(route: String?): Screens? {
     if (route == null) return null

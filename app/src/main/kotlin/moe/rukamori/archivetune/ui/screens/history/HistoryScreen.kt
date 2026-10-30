@@ -9,7 +9,7 @@
     ExperimentalMaterial3ExpressiveApi::class,
 )
 
-package moe.rukamori.archivetune.ui.screens
+package moe.rukamori.archivetune.ui.screens.history
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility

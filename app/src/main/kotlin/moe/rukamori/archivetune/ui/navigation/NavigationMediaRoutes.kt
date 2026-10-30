@@ -4,7 +4,7 @@
  * GPL-3.0 License | Contributors: see git history
  */
 
-package moe.rukamori.archivetune.ui.screens
+package moe.rukamori.archivetune.ui.navigation
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarScrollBehavior
@@ -13,11 +13,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import moe.rukamori.archivetune.ui.screens.album.AlbumScreen
 import moe.rukamori.archivetune.ui.screens.album.SpotifyAlbumScreen
 import moe.rukamori.archivetune.ui.screens.artist.ArtistAlbumsScreen
 import moe.rukamori.archivetune.ui.screens.artist.ArtistItemsScreen
 import moe.rukamori.archivetune.ui.screens.artist.ArtistScreen
 import moe.rukamori.archivetune.ui.screens.artist.ArtistSongsScreen
+import moe.rukamori.archivetune.ui.screens.browse.YouTubeBrowseScreen
 import moe.rukamori.archivetune.ui.screens.library.SpotifyLikedSongsScreen
 import moe.rukamori.archivetune.ui.screens.playlist.AutoPlaylistScreen
 import moe.rukamori.archivetune.ui.screens.playlist.CachePlaylistScreen

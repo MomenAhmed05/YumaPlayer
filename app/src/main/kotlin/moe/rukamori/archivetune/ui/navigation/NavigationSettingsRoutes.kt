@@ -4,7 +4,7 @@
  * GPL-3.0 License | Contributors: see git history
  */
 
-package moe.rukamori.archivetune.ui.screens
+package moe.rukamori.archivetune.ui.navigation
 
 import android.net.Uri
 import androidx.navigation.NavGraphBuilder
@@ -14,6 +14,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import moe.rukamori.archivetune.constants.UpdateChannel
 import moe.rukamori.archivetune.defaultUpdateChannel
+import moe.rukamori.archivetune.ui.screens.login.LOGIN_ROUTE
+import moe.rukamori.archivetune.ui.screens.login.LOGIN_URL_ARGUMENT
+import moe.rukamori.archivetune.ui.screens.login.LoginScreen
 import moe.rukamori.archivetune.ui.screens.settings.AboutScreen
 import moe.rukamori.archivetune.ui.screens.settings.AccountSettings
 import moe.rukamori.archivetune.ui.screens.settings.AiIntegrationSettings

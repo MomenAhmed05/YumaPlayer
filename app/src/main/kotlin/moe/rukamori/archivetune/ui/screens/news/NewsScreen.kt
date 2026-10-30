@@ -9,7 +9,7 @@
     ExperimentalMaterial3ExpressiveApi::class,
 )
 
-package moe.rukamori.archivetune.ui.screens
+package moe.rukamori.archivetune.ui.screens.news
 
 import android.net.Uri
 import androidx.compose.animation.AnimatedContent

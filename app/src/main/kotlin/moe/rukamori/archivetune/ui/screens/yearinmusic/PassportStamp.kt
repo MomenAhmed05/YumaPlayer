@@ -35,8 +35,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import moe.rukamori.archivetune.R
-import moe.rukamori.archivetune.ui.screens.RecapInk
-import moe.rukamori.archivetune.ui.screens.RecapLime
 
 @Composable
 internal fun PassportStamp(

@@ -6,7 +6,7 @@
 
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package moe.rukamori.archivetune.ui.screens
+package moe.rukamori.archivetune.ui.screens.newrelease
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.tween

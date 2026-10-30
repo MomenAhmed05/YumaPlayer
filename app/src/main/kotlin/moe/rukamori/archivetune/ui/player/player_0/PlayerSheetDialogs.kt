@@ -29,7 +29,7 @@ import moe.rukamori.archivetune.ui.player.player_0.sett.FullPlayerOptionsMenu
 import moe.rukamori.archivetune.ui.player.player_0.sett.PlayerMenuScreen
 import moe.rukamori.archivetune.ui.player.queue_0.QueueOptionsMenu
 import moe.rukamori.archivetune.ui.player.toPlaybackErrorInfo
-import moe.rukamori.archivetune.ui.screens.buildLoginRoute
+import moe.rukamori.archivetune.ui.screens.login.buildLoginRoute
 import moe.rukamori.archivetune.ui.state.PlayerUiState
 import moe.rukamori.archivetune.ui.state.QueueUiState
 import moe.rukamori.archivetune.ui.state.UpdateState

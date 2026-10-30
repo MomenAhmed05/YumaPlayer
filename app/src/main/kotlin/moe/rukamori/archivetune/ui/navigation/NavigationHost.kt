@@ -34,7 +34,6 @@ import moe.rukamori.archivetune.ui.navigation.navigationExitTransition
 import moe.rukamori.archivetune.ui.navigation.navigationPopEnterTransition
 import moe.rukamori.archivetune.ui.navigation.navigationPopExitTransition
 import moe.rukamori.archivetune.ui.screens.Screens
-import moe.rukamori.archivetune.ui.screens.navigationBuilder
 import moe.rukamori.archivetune.ui.screens.settings.NavigationTab
 import moe.rukamori.archivetune.ui.screens.settings.SettingsScreen
 import moe.rukamori.archivetune.ui.screens.settings.UpdateScreen

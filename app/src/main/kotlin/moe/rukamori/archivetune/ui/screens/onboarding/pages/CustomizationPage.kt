@@ -38,7 +38,7 @@ import moe.rukamori.archivetune.constants.HomeBackgroundStyle
 import moe.rukamori.archivetune.constants.PlaybackSource
 import moe.rukamori.archivetune.onboarding.OnboardingUiState
 import moe.rukamori.archivetune.spotify.SpotifyAccountViewModel
-import moe.rukamori.archivetune.ui.screens.LoginScreen
+import moe.rukamori.archivetune.ui.screens.login.LoginScreen
 import moe.rukamori.archivetune.ui.screens.onboarding.components.ExpressivePageHeader
 import moe.rukamori.archivetune.ui.screens.onboarding.components.OnboardingContentMaxWidth
 import moe.rukamori.archivetune.ui.screens.settings.DarkMode
