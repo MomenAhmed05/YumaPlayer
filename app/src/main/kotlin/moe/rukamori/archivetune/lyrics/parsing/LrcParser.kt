@@ -4,7 +4,10 @@
  * GPL-3.0 License | Contributors: see git history
  */
 
-package moe.rukamori.archivetune.lyrics
+package moe.rukamori.archivetune.lyrics.parsing
+
+import moe.rukamori.archivetune.lyrics.model.LyricsEntry
+import moe.rukamori.archivetune.lyrics.model.WordTimestamp
 
 import android.text.format.DateUtils
 import moe.rukamori.archivetune.betterlyrics.QRCParser

@@ -30,7 +30,7 @@ import moe.rukamori.archivetune.playback.streamCacheKey
 import moe.rukamori.archivetune.playback.legacyDataKey
 import moe.rukamori.archivetune.playback.validateLegacyCacheKey
 import moe.rukamori.archivetune.playback.validateLegacyCacheKeyAcrossCaches
-import moe.rukamori.archivetune.playback.isPlayerInitialized
+import moe.rukamori.archivetune.playback.audio.isPlayerInitialized
 import moe.rukamori.archivetune.playback.smart.TrackAnalyzer
 import moe.rukamori.archivetune.utils.isLocalMediaId
 import timber.log.Timber

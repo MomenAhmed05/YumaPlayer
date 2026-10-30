@@ -15,6 +15,9 @@ import moe.rukamori.archivetune.playback.recovery.PlaybackRecoveryEngine
 import moe.rukamori.archivetune.playback.recovery.PlaybackStreamRecoveryTracker
 import moe.rukamori.archivetune.playback.resolvers.updateActualPlaybackSources
 import moe.rukamori.archivetune.playback.together.ServiceTogetherCoordinator
+import moe.rukamori.archivetune.playback.audio.*
+import moe.rukamori.archivetune.playback.crossfade.*
+import moe.rukamori.archivetune.playback.queue.*
 
 import android.app.ActivityManager
 import android.app.NotificationManager
@@ -606,10 +609,10 @@ class MusicService :
     override fun ensurePresenceManager() = ensurePresenceManagerInternal()
 
     internal fun calculateAudioNormalizationFactor(format: FormatEntity?, normalizeAudio: Boolean): Float =
-        moe.rukamori.archivetune.playback.calculateAudioNormalizationFactor(format, normalizeAudio)
+        moe.rukamori.archivetune.playback.audio.calculateAudioNormalizationFactor(format, normalizeAudio)
 
     override fun resolveAudioNormalizationFactor(mediaId: String?, format: FormatEntity?, normalizeAudio: Boolean): Float =
-        moe.rukamori.archivetune.playback.resolveAudioNormalizationFactor(mediaId, format, normalizeAudio)
+        moe.rukamori.archivetune.playback.audio.resolveAudioNormalizationFactor(mediaId, format, normalizeAudio)
 
     override fun hasBluetoothConnectPermission(): Boolean =
         Build.VERSION.SDK_INT < Build.VERSION_CODES.S || checkSelfPermission(android.Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED

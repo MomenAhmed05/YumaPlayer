@@ -24,6 +24,7 @@ import kotlinx.coroutines.test.setMain
 import moe.rukamori.archivetune.db.MusicDatabase
 import moe.rukamori.archivetune.db.entities.LyricsEntity
 import moe.rukamori.archivetune.lyrics.LyricsHelper
+import moe.rukamori.archivetune.lyrics.language.LyricsRomanizationPreferences
 import moe.rukamori.archivetune.playback.PlayerConnection
 import moe.rukamori.archivetune.playback.PlayerConnectionHolder
 import moe.rukamori.archivetune.data.repository.SettingsRepository
@@ -93,7 +94,7 @@ class PlayerViewModelHandleActionTest {
         every { settingsRepository.isImmersiveEnabled() } returns false
         every { settingsRepository.isShowCodecInfoEnabled() } returns false
         every { settingsRepository.isAlbumCoverGlowEnabled() } returns false
-        every { settingsRepository.lyricsRomanizationPrefsFlow } returns MutableStateFlow(moe.rukamori.archivetune.lyrics.LyricsRomanizationPreferences())
+        every { settingsRepository.lyricsRomanizationPrefsFlow } returns MutableStateFlow(moe.rukamori.archivetune.lyrics.language.LyricsRomanizationPreferences())
 
         viewModel = spyk(PlayerViewModel(
             application = application,

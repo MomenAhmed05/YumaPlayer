@@ -3,7 +3,11 @@
  * ArchiveTune (2026) | Original work by © Rukamori
  * GPL-3.0 License | Contributors: see git history
  */
-package moe.rukamori.archivetune.playback
+package moe.rukamori.archivetune.playback.audio
+
+import moe.rukamori.archivetune.playback.MusicService
+import moe.rukamori.archivetune.playback.PlaybackConstants
+import moe.rukamori.archivetune.playback.crossfade.cancelCrossfade
 
 import moe.rukamori.archivetune.playback.audio.AudioPolicyConstants
 

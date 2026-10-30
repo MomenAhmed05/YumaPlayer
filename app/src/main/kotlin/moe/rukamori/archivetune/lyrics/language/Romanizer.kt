@@ -4,7 +4,9 @@
  * GPL-3.0 License | Contributors: see git history
  */
 
-package moe.rukamori.archivetune.lyrics
+package moe.rukamori.archivetune.lyrics.language
+
+import moe.rukamori.archivetune.lyrics.model.LyricsEntry
 
 import android.icu.text.Transliterator
 import android.util.LruCache

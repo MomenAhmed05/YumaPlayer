@@ -21,6 +21,8 @@ import moe.rukamori.archivetune.playback.crossfade.kickOffUpcomingTrackAnalysis
 import moe.rukamori.archivetune.playback.crossfade.recheckCacheReadinessForCurrentAndNext
 import moe.rukamori.archivetune.playback.crossfade.registerCacheListenersForMediaItem
 import moe.rukamori.archivetune.playback.queues.Queue
+import moe.rukamori.archivetune.playback.queue.*
+import moe.rukamori.archivetune.playback.audio.*
 
 internal fun MusicService.createMusicServicePlayerListeners(): MusicServicePlayerListeners {
     val service = this

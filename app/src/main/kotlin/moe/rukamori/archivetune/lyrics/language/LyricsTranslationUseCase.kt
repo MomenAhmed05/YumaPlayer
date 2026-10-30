@@ -4,7 +4,7 @@
  * GPL-3.0 License | Contributors: see git history
  */
 
-package moe.rukamori.archivetune.lyrics
+package moe.rukamori.archivetune.lyrics.language
 
 import android.content.Context
 import androidx.datastore.preferences.core.edit

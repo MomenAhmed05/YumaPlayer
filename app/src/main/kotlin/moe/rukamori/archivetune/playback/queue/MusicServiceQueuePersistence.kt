@@ -4,7 +4,10 @@
  * GPL-3.0 License | Contributors: see git history
  */
 
-package moe.rukamori.archivetune.playback
+package moe.rukamori.archivetune.playback.queue
+
+import moe.rukamori.archivetune.playback.MusicService
+import moe.rukamori.archivetune.playback.audio.abandonAudioFocus
 
 import androidx.media3.common.MediaItem
 import moe.rukamori.archivetune.extensions.currentMetadata

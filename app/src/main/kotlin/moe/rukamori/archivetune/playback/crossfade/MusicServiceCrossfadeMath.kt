@@ -1,4 +1,6 @@
-package moe.rukamori.archivetune.playback
+package moe.rukamori.archivetune.playback.crossfade
+
+import moe.rukamori.archivetune.playback.MusicService
 
 import androidx.media3.common.MediaItem
 import moe.rukamori.archivetune.extensions.metadata

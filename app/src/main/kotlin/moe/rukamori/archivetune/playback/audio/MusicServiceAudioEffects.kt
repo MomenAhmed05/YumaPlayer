@@ -3,7 +3,12 @@
  * ArchiveTune (2026) | Original work by © Rukamori
  * GPL-3.0 License | Contributors: see git history
  */
-package moe.rukamori.archivetune.playback
+package moe.rukamori.archivetune.playback.audio
+
+import moe.rukamori.archivetune.playback.EqCapabilities
+import moe.rukamori.archivetune.playback.EqSettings
+import moe.rukamori.archivetune.playback.MusicService
+import moe.rukamori.archivetune.playback.PlaybackConstants
 
 import moe.rukamori.archivetune.playback.audio.AudioPolicyConstants
 
@@ -32,7 +37,7 @@ internal inline fun <T> readAudioEffectValue(
 internal inline fun <T> MusicService.readAudioEffectValue(
     operation: String,
     block: () -> T,
-): T? = moe.rukamori.archivetune.playback.readAudioEffectValue(operation, block)
+): T? = moe.rukamori.archivetune.playback.audio.readAudioEffectValue(operation, block)
 
 internal fun MusicService.updateEqCapabilitiesFromEffect(eq: Equalizer) {
     val bandCount = readAudioEffectValue("equalizer band count") { eq.numberOfBands.toInt().coerceAtLeast(0) } ?: 0

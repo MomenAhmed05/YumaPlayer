@@ -27,9 +27,9 @@ import moe.rukamori.archivetune.audiodsp.fadeProgress
 import moe.rukamori.archivetune.playback.MusicService
 import moe.rukamori.archivetune.playback.engine.ExoDeckController
 import moe.rukamori.archivetune.playback.bumpCrossfadePlanGeneration
-import moe.rukamori.archivetune.playback.currentEffectivePlayerVolume
-import moe.rukamori.archivetune.playback.currentEffectivePlayerVolumeForMediaId
-import moe.rukamori.archivetune.playback.requiredCrossfadeStartBufferMs
+import moe.rukamori.archivetune.playback.audio.currentEffectivePlayerVolume
+import moe.rukamori.archivetune.playback.audio.currentEffectivePlayerVolumeForMediaId
+import moe.rukamori.archivetune.playback.crossfade.requiredCrossfadeStartBufferMs
 import moe.rukamori.archivetune.playback.smart.TrackAnalyzer
 import timber.log.Timber
 import kotlin.time.Duration.Companion.milliseconds

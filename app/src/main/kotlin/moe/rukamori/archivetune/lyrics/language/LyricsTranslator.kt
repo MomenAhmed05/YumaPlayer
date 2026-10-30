@@ -1,4 +1,4 @@
-package moe.rukamori.archivetune.lyrics
+package moe.rukamori.archivetune.lyrics.language
 
 import moe.rukamori.archivetune.ai.AiLyricsDocumentParser
 import moe.rukamori.archivetune.ai.AiLyricsSegment

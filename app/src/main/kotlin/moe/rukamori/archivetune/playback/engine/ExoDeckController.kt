@@ -22,9 +22,9 @@ import moe.rukamori.archivetune.audiodsp.TransitionTier
 import moe.rukamori.archivetune.extensions.setOffloadEnabled
 import moe.rukamori.archivetune.playback.MusicService
 import moe.rukamori.archivetune.playback.PlaybackConstants
-import moe.rukamori.archivetune.playback.applyEffectiveVolumeImmediately
+import moe.rukamori.archivetune.playback.audio.applyEffectiveVolumeImmediately
 import moe.rukamori.archivetune.playback.createSecondaryCrossfadePlayer
-import moe.rukamori.archivetune.playback.isPlayerInitialized
+import moe.rukamori.archivetune.playback.audio.isPlayerInitialized
 import timber.log.Timber
 
 class ExoDeckController(

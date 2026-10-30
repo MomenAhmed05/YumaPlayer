@@ -21,7 +21,7 @@ import moe.rukamori.archivetune.db.MusicDatabase
 import moe.rukamori.archivetune.db.entities.FormatEntity
 import moe.rukamori.archivetune.playback.MusicService
 import moe.rukamori.archivetune.playback.PlaybackConstants
-import moe.rukamori.archivetune.playback.calculateAudioNormalizationFactor
+import moe.rukamori.archivetune.playback.audio.calculateAudioNormalizationFactor
 import moe.rukamori.archivetune.playback.remotePlaybackTrackingUrl
 import moe.rukamori.archivetune.playback.ytStreamCacheKey
 import moe.rukamori.archivetune.utils.AuthScopedCacheValue

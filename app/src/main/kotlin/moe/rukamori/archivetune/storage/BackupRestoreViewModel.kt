@@ -41,7 +41,7 @@ import moe.rukamori.archivetune.extensions.div
 import moe.rukamori.archivetune.extensions.zipInputStream
 import moe.rukamori.archivetune.extensions.zipOutputStream
 import moe.rukamori.archivetune.playback.MusicService
-import moe.rukamori.archivetune.playback.QueuePersistenceStore.Companion.PERSISTENT_QUEUE_FILE
+import moe.rukamori.archivetune.playback.queue.QueuePersistenceStore.Companion.PERSISTENT_QUEUE_FILE
 import moe.rukamori.archivetune.utils.dataStore
 import moe.rukamori.archivetune.utils.reportException
 import org.xmlpull.v1.XmlPullParser

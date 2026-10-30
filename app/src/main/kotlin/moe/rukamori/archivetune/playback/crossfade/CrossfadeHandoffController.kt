@@ -24,9 +24,9 @@ import moe.rukamori.archivetune.audiodsp.TransitionTier
 import moe.rukamori.archivetune.extensions.metadata
 import moe.rukamori.archivetune.playback.MusicService
 import moe.rukamori.archivetune.playback.engine.ExoDeckController
-import moe.rukamori.archivetune.playback.applyEffectiveVolumeImmediately
-import moe.rukamori.archivetune.playback.currentEffectivePlayerVolumeForMediaId
-import moe.rukamori.archivetune.playback.updateAudiblePlaybackRecovery
+import moe.rukamori.archivetune.playback.audio.applyEffectiveVolumeImmediately
+import moe.rukamori.archivetune.playback.audio.currentEffectivePlayerVolumeForMediaId
+import moe.rukamori.archivetune.playback.audio.updateAudiblePlaybackRecovery
 
 internal suspend fun MusicService.finishCrossfade(
     target: CrossfadeTarget,

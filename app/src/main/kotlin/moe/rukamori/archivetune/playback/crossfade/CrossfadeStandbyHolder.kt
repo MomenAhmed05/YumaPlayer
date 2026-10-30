@@ -22,14 +22,14 @@ import moe.rukamori.archivetune.audiodsp.CrossfadeTarget
 import moe.rukamori.archivetune.audiodsp.DjFilterAudioProcessor
 import moe.rukamori.archivetune.extensions.setOffloadEnabled
 import moe.rukamori.archivetune.playback.MusicService
-import moe.rukamori.archivetune.playback.applyEffectiveVolumeImmediately
+import moe.rukamori.archivetune.playback.audio.applyEffectiveVolumeImmediately
 import moe.rukamori.archivetune.playback.bumpCrossfadePlanGeneration
 import moe.rukamori.archivetune.playback.createMediaSourceFactory
 import moe.rukamori.archivetune.playback.engine.ExoDeckController
 import moe.rukamori.archivetune.playback.engine.SafeTrackSelectionFactory
 import moe.rukamori.archivetune.playback.engine.prepareNext
-import moe.rukamori.archivetune.playback.isPlayerInitialized
-import moe.rukamori.archivetune.playback.playbackAudioAttributes
+import moe.rukamori.archivetune.playback.audio.isPlayerInitialized
+import moe.rukamori.archivetune.playback.audio.playbackAudioAttributes
 import moe.rukamori.archivetune.playback.shouldBypassPlayerCache
 import moe.rukamori.archivetune.playback.smart.TrackAnalyzer
 

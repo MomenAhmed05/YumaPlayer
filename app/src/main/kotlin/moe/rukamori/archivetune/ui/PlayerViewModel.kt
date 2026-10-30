@@ -8,10 +8,10 @@ import moe.rukamori.archivetune.data.repository.SettingsRepository
 import moe.rukamori.archivetune.deeplink.ResolveAlbumBrowseIdUseCase
 import moe.rukamori.archivetune.deeplink.ResolveQueueMediaItemUseCase
 import moe.rukamori.archivetune.deeplink.ResolveWatchPlaylistEndpointUseCase
-import moe.rukamori.archivetune.lyrics.LyricsEntry
+import moe.rukamori.archivetune.lyrics.model.LyricsEntry
 import moe.rukamori.archivetune.lyrics.LyricsHelper
-import moe.rukamori.archivetune.lyrics.LyricsTranslationUseCase
-import moe.rukamori.archivetune.lyrics.LyricsTranslationUseCaseImpl
+import moe.rukamori.archivetune.lyrics.language.LyricsTranslationUseCase
+import moe.rukamori.archivetune.lyrics.language.LyricsTranslationUseCaseImpl
 import moe.rukamori.archivetune.models.ParsedIntentAction
 import moe.rukamori.archivetune.repository.LyricsRepository
 import moe.rukamori.archivetune.search.AddSearchHistoryUseCase
