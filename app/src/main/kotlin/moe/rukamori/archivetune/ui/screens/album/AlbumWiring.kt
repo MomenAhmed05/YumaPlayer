@@ -22,7 +22,7 @@ import androidx.compose.runtime.toMutableStateList
 import androidx.media3.exoplayer.offline.Download
 import moe.rukamori.archivetune.db.entities.AlbumWithSongs
 import moe.rukamori.archivetune.innertube.models.AlbumItem
-import moe.rukamori.archivetune.playback.DownloadUtil
+import moe.rukamori.archivetune.download.DownloadUtil
 import moe.rukamori.archivetune.ui.utils.HeaderDownloadState
 import moe.rukamori.archivetune.ui.utils.ItemWrapper
 import moe.rukamori.archivetune.ui.utils.headerDownloadState

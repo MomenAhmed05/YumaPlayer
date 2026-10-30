@@ -1,5 +1,7 @@
 package moe.rukamori.archivetune.ui
 
+import moe.rukamori.archivetune.playback.together.*
+
 import android.os.Build
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -10,7 +12,7 @@ import moe.rukamori.archivetune.deeplink.ResolveQueueMediaItemUseCase
 import moe.rukamori.archivetune.deeplink.ResolveWatchPlaylistEndpointUseCase
 import moe.rukamori.archivetune.models.ParsedIntentAction
 import moe.rukamori.archivetune.playback.PlayerConnection
-import moe.rukamori.archivetune.playback.joinTogether
+import moe.rukamori.archivetune.playback.together.joinTogether
 import moe.rukamori.archivetune.playback.queues.ListQueue
 import moe.rukamori.archivetune.playback.queues.YouTubeQueue
 import moe.rukamori.archivetune.ui.screens.login.buildLoginRoute

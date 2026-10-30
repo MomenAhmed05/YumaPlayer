@@ -1,5 +1,7 @@
 package moe.rukamori.archivetune.ui.navigation
 
+import moe.rukamori.archivetune.playback.together.*
+
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -23,7 +25,7 @@ import moe.rukamori.archivetune.models.ParsedIntentAction
 import moe.rukamori.archivetune.musicrecognition.openMusicRecognition
 import moe.rukamori.archivetune.playback.MusicService
 import moe.rukamori.archivetune.playback.PlayerConnection
-import moe.rukamori.archivetune.playback.joinTogether
+import moe.rukamori.archivetune.playback.together.joinTogether
 import moe.rukamori.archivetune.playback.queues.ListQueue
 import moe.rukamori.archivetune.playback.queues.Queue
 import moe.rukamori.archivetune.playback.service.MusicServiceBinding

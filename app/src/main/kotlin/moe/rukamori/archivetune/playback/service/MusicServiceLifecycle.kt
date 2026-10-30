@@ -6,7 +6,13 @@
 
 @file:Suppress("DEPRECATION")
 
-package moe.rukamori.archivetune.playback
+package moe.rukamori.archivetune.playback.service
+
+import moe.rukamori.archivetune.playback.EqSettings
+import moe.rukamori.archivetune.playback.PlaybackConstants
+import moe.rukamori.archivetune.playback.session.MusicServiceNotification
+
+import moe.rukamori.archivetune.playback.MusicService
 
 import android.app.Service
 import android.bluetooth.BluetoothClass

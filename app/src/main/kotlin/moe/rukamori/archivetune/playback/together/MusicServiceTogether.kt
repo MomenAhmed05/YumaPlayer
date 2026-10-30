@@ -1,4 +1,6 @@
-package moe.rukamori.archivetune.playback
+package moe.rukamori.archivetune.playback.together
+
+import moe.rukamori.archivetune.playback.MusicService
 
 import android.content.Intent
 import android.os.SystemClock

@@ -26,7 +26,7 @@ import moe.rukamori.archivetune.db.entities.LyricsEntity
 import moe.rukamori.archivetune.lyrics.LyricsHelper
 import moe.rukamori.archivetune.lyrics.language.LyricsRomanizationPreferences
 import moe.rukamori.archivetune.playback.PlayerConnection
-import moe.rukamori.archivetune.playback.PlayerConnectionHolder
+import moe.rukamori.archivetune.playback.host.PlayerConnectionHolder
 import moe.rukamori.archivetune.data.repository.SettingsRepository
 import moe.rukamori.archivetune.ui.state.PlayerUiState
 import moe.rukamori.archivetune.ui.player.player_0.buttons.PlayerAction

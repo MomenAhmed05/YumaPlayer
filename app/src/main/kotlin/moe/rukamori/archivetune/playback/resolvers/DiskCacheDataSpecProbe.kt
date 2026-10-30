@@ -1,5 +1,7 @@
 package moe.rukamori.archivetune.playback.resolvers
 
+import moe.rukamori.archivetune.playback.engine.*
+
 import androidx.media3.datasource.DataSpec
 import androidx.media3.datasource.cache.ContentMetadata
 import kotlinx.coroutines.Dispatchers
@@ -7,14 +9,14 @@ import kotlinx.coroutines.launch
 import moe.rukamori.archivetune.constants.PlaybackSource
 import moe.rukamori.archivetune.db.entities.FormatEntity
 import moe.rukamori.archivetune.playback.MusicService
-import moe.rukamori.archivetune.playback.flacCacheKey
-import moe.rukamori.archivetune.playback.flacStreamCacheKey
-import moe.rukamori.archivetune.playback.getContinuousCachedLength
-import moe.rukamori.archivetune.playback.legacyDataKey
-import moe.rukamori.archivetune.playback.resolveCachedDataSpec
-import moe.rukamori.archivetune.playback.streamCacheKey
-import moe.rukamori.archivetune.playback.validateLegacyCacheKeyAcrossCaches
-import moe.rukamori.archivetune.playback.ytStreamCacheKey
+import moe.rukamori.archivetune.playback.engine.flacCacheKey
+import moe.rukamori.archivetune.playback.engine.flacStreamCacheKey
+import moe.rukamori.archivetune.playback.engine.getContinuousCachedLength
+import moe.rukamori.archivetune.playback.engine.legacyDataKey
+import moe.rukamori.archivetune.playback.engine.resolveCachedDataSpec
+import moe.rukamori.archivetune.playback.engine.streamCacheKey
+import moe.rukamori.archivetune.playback.engine.validateLegacyCacheKeyAcrossCaches
+import moe.rukamori.archivetune.playback.engine.ytStreamCacheKey
 
 internal fun MusicService.getOrResolveContentLength(
     targetKey: String,

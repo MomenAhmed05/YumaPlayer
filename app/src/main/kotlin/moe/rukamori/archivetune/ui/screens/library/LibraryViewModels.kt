@@ -83,7 +83,7 @@ import moe.rukamori.archivetune.library.RefreshLibraryTopMixesUseCase
 import moe.rukamori.archivetune.library.TopMixGenerationFailure
 import moe.rukamori.archivetune.models.MediaMetadata
 import moe.rukamori.archivetune.models.toMediaMetadata
-import moe.rukamori.archivetune.playback.DownloadUtil
+import moe.rukamori.archivetune.download.DownloadUtil
 import moe.rukamori.archivetune.utils.SyncUtils
 import moe.rukamori.archivetune.utils.dataStore
 import moe.rukamori.archivetune.utils.get

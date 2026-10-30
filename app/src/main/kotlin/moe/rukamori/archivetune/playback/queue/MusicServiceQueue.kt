@@ -9,13 +9,13 @@ package moe.rukamori.archivetune.playback.queue
 import moe.rukamori.archivetune.playback.ExoDownloadService
 import moe.rukamori.archivetune.playback.MusicService
 import moe.rukamori.archivetune.playback.PlaybackTiming
-import moe.rukamori.archivetune.playback.TogetherGuestCoordinator
+import moe.rukamori.archivetune.playback.together.TogetherGuestCoordinator
 import moe.rukamori.archivetune.playback.audio.abandonAudioFocus
 import moe.rukamori.archivetune.playback.audio.closeAudioEffectSession
 import moe.rukamori.archivetune.playback.crossfade.cancelCrossfade
-import moe.rukamori.archivetune.playback.requestTogetherAddTrack
-import moe.rukamori.archivetune.playback.requestTogetherControl
-import moe.rukamori.archivetune.playback.showTogetherNotice
+import moe.rukamori.archivetune.playback.together.requestTogetherAddTrack
+import moe.rukamori.archivetune.playback.together.requestTogetherControl
+import moe.rukamori.archivetune.playback.together.showTogetherNotice
 
 import android.widget.Toast
 import androidx.annotation.OptIn

@@ -37,7 +37,7 @@ import moe.rukamori.archivetune.db.MusicDatabase
 import moe.rukamori.archivetune.home.effects.HomeBackgroundSettings
 import moe.rukamori.archivetune.home.effects.LocalHomeBackgroundStyle
 import moe.rukamori.archivetune.home.effects.ScreenBackground
-import moe.rukamori.archivetune.playback.DownloadUtil
+import moe.rukamori.archivetune.download.DownloadUtil
 import moe.rukamori.archivetune.playback.PlayerConnection
 import moe.rukamori.archivetune.ui.PlayerViewModel
 import moe.rukamori.archivetune.ui.component.BottomSheetPageState

@@ -63,7 +63,7 @@ private val MascotAssets = listOf(
 @HiltViewModel
 class PlayerViewModel @Inject constructor(
     application: Application? = null,
-    private val connectionHolder: moe.rukamori.archivetune.playback.PlayerConnectionHolder,
+    private val connectionHolder: moe.rukamori.archivetune.playback.host.PlayerConnectionHolder,
     private val settingsRepository: SettingsRepository,
     private val lyricsHelper: LyricsHelper,
     addSearchHistoryUseCase: AddSearchHistoryUseCase? = null,

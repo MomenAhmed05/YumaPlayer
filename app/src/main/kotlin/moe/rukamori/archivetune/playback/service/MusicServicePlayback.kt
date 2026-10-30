@@ -4,7 +4,12 @@
  * GPL-3.0 License | Contributors: see git history
  */
 
-package moe.rukamori.archivetune.playback
+package moe.rukamori.archivetune.playback.service
+
+import moe.rukamori.archivetune.playback.engine.*
+import moe.rukamori.archivetune.playback.crossfade.cancelCrossfade
+
+import moe.rukamori.archivetune.playback.MusicService
 
 import android.content.Intent
 import android.net.NetworkCapabilities

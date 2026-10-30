@@ -1,4 +1,6 @@
-package moe.rukamori.archivetune.playback
+package moe.rukamori.archivetune.playback.engine
+
+import moe.rukamori.archivetune.playback.MusicService
 
 import android.net.Uri
 import androidx.media3.datasource.DataSpec

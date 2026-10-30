@@ -7,7 +7,7 @@
 package moe.rukamori.archivetune.playback.queue
 
 import moe.rukamori.archivetune.playback.MusicService
-import moe.rukamori.archivetune.playback.TogetherGuestCoordinator
+import moe.rukamori.archivetune.playback.together.TogetherGuestCoordinator
 
 import androidx.annotation.OptIn
 import androidx.datastore.core.DataStore

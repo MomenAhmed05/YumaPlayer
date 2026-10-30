@@ -2,7 +2,7 @@ package moe.rukamori.archivetune.ui.main
 
 import androidx.compose.runtime.staticCompositionLocalOf
 import moe.rukamori.archivetune.db.MusicDatabase
-import moe.rukamori.archivetune.playback.DownloadUtil
+import moe.rukamori.archivetune.download.DownloadUtil
 import moe.rukamori.archivetune.playback.PlayerConnection
 import moe.rukamori.archivetune.utils.SyncUtils
 

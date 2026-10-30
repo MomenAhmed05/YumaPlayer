@@ -5,7 +5,9 @@
  */
 @file:Suppress("DEPRECATION")
 
-package moe.rukamori.archivetune.playback
+package moe.rukamori.archivetune.playback.session
+
+import moe.rukamori.archivetune.playback.MusicService
 
 import android.app.Notification
 import android.app.NotificationChannel

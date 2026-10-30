@@ -17,7 +17,14 @@ import moe.rukamori.archivetune.playback.resolvers.updateActualPlaybackSources
 import moe.rukamori.archivetune.playback.together.ServiceTogetherCoordinator
 import moe.rukamori.archivetune.playback.audio.*
 import moe.rukamori.archivetune.playback.crossfade.*
+import moe.rukamori.archivetune.playback.discord.*
+import moe.rukamori.archivetune.playback.engine.*
+import moe.rukamori.archivetune.playback.host.*
+import moe.rukamori.archivetune.playback.listeners.*
 import moe.rukamori.archivetune.playback.queue.*
+import moe.rukamori.archivetune.playback.service.*
+import moe.rukamori.archivetune.playback.session.*
+import moe.rukamori.archivetune.playback.together.*
 
 import android.app.ActivityManager
 import android.app.NotificationManager
@@ -722,7 +729,7 @@ class MusicService :
         )
 
     internal fun createTransientSongFromMedia(media: MediaMetadata): Song =
-        moe.rukamori.archivetune.playback.createTransientSongFromMedia(media)
+        moe.rukamori.archivetune.playback.discord.createTransientSongFromMedia(media)
 
     override fun onDestroy() {
         sponsorBlockPlaybackController.detach()
