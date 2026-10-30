@@ -38,7 +38,7 @@ import moe.rukamori.archivetune.ui.component.LocalMenuState
 import moe.rukamori.archivetune.ui.component.YouTubeListItem
 import moe.rukamori.archivetune.ui.haptics.rememberYumaHaptics
 import moe.rukamori.archivetune.ui.menu.*
-import moe.rukamori.archivetune.viewmodels.OnlineSearchSuggestionViewModel
+import moe.rukamori.archivetune.ui.screens.search.OnlineSearchSuggestionViewModel
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable

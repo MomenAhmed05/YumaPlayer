@@ -34,7 +34,7 @@ import coil3.request.allowHardware
 import kotlin.coroutines.resume
 import kotlinx.coroutines.suspendCancellableCoroutine
 import moe.rukamori.archivetune.R
-import moe.rukamori.archivetune.viewmodels.YearInMusicUiState
+import moe.rukamori.archivetune.ui.screens.yearinmusic.YearInMusicUiState
 
 @Composable
 internal fun rememberYearInMusicCards(content: YearInMusicUiState.Content): List<YearInMusicRecapCard> {

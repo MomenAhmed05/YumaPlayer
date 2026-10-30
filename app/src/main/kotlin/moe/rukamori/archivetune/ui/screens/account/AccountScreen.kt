@@ -53,9 +53,9 @@ import moe.rukamori.archivetune.ui.menu.YouTubeAlbumMenu
 import moe.rukamori.archivetune.ui.menu.YouTubeArtistMenu
 import moe.rukamori.archivetune.ui.menu.YouTubePlaylistMenu
 import moe.rukamori.archivetune.ui.screens.settings.account.header.ProfileHeroHeader
-import moe.rukamori.archivetune.viewmodels.AccountContentType
-import moe.rukamori.archivetune.viewmodels.AccountScreenUiState
-import moe.rukamori.archivetune.viewmodels.AccountViewModel
+import moe.rukamori.archivetune.ui.screens.account.AccountContentType
+import moe.rukamori.archivetune.ui.screens.account.AccountScreenUiState
+import moe.rukamori.archivetune.ui.screens.account.AccountViewModel
 
 @Composable
 fun AccountScreen(

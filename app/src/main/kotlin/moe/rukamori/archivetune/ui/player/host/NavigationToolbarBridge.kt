@@ -27,7 +27,7 @@ import moe.rukamori.archivetune.ui.component.FloatingNavigationToolbar
 import moe.rukamori.archivetune.ui.screens.Screens
 import moe.rukamori.archivetune.ui.navigation.findTabForRoute
 import moe.rukamori.archivetune.ui.settings.SettingsDimensions
-import moe.rukamori.archivetune.viewmodels.HomeViewModel
+import moe.rukamori.archivetune.home.HomeViewModel
 
 @Composable
 internal fun BoxScope.NavigationToolbarBridge(

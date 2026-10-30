@@ -31,7 +31,7 @@ import moe.rukamori.archivetune.home.HomeScreenState
 import moe.rukamori.archivetune.ui.component.LocalMenuState
 import moe.rukamori.archivetune.ui.screens.home.HomeContent
 import moe.rukamori.archivetune.ui.screens.home.HomeStatePane
-import moe.rukamori.archivetune.viewmodels.HomeViewModel
+import moe.rukamori.archivetune.home.HomeViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

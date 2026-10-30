@@ -46,7 +46,7 @@ import moe.rukamori.archivetune.ui.haptics.rememberYumaHaptics
 import moe.rukamori.archivetune.ui.menu.SongMenu
 import moe.rukamori.archivetune.utils.rememberEnumPreference
 import moe.rukamori.archivetune.utils.rememberPreference
-import moe.rukamori.archivetune.viewmodels.LibrarySongsViewModel
+import moe.rukamori.archivetune.ui.screens.library.LibrarySongsViewModel
 
 @Composable
 fun LibrarySongsScreen(

@@ -68,7 +68,7 @@ import moe.rukamori.archivetune.ui.component.rememberCollapseFraction
 import moe.rukamori.archivetune.ui.haptics.rememberYumaHaptics
 import moe.rukamori.archivetune.ui.scaffold.HeaderHazeBackdrop
 import moe.rukamori.archivetune.utils.rememberPreference
-import moe.rukamori.archivetune.viewmodels.ArtistViewModel
+import moe.rukamori.archivetune.ui.screens.artist.ArtistViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

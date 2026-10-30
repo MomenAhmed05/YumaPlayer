@@ -86,8 +86,8 @@ import moe.rukamori.archivetune.ui.menu.YouTubeSongMenu
 import moe.rukamori.archivetune.ui.screens.browse.youtubeBrowseSongGridItem
 import moe.rukamori.archivetune.ui.utils.SnapLayoutInfoProvider
 import moe.rukamori.archivetune.ui.utils.backToMain
-import moe.rukamori.archivetune.viewmodels.YouTubeBrowseUiState
-import moe.rukamori.archivetune.viewmodels.YouTubeBrowseViewModel
+import moe.rukamori.archivetune.ui.screens.browse.YouTubeBrowseUiState
+import moe.rukamori.archivetune.ui.screens.browse.YouTubeBrowseViewModel
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable

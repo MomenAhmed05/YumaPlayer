@@ -56,7 +56,7 @@ import moe.rukamori.archivetune.ui.menu.ArtistMenu
 import moe.rukamori.archivetune.ui.settings.SettingsDimensions
 import moe.rukamori.archivetune.utils.rememberEnumPreference
 import moe.rukamori.archivetune.utils.rememberPreference
-import moe.rukamori.archivetune.viewmodels.LibraryArtistsViewModel
+import moe.rukamori.archivetune.ui.screens.library.LibraryArtistsViewModel
 
 @Composable
 fun LibraryArtistsScreen(

@@ -10,7 +10,6 @@ import androidx.compose.runtime.Immutable
 import moe.rukamori.archivetune.db.entities.Song
 import moe.rukamori.archivetune.ui.utils.ItemWrapper
 
-typealias AlbumUiState = moe.rukamori.archivetune.viewmodels.AlbumUiState
 typealias WrappedSong = ItemWrapper<Song>
 
 internal const val ALBUM_KEY_HEADER = "header"

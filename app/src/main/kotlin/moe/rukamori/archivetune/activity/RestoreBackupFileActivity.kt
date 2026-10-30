@@ -51,8 +51,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import moe.rukamori.archivetune.ui.component.DefaultDialog
 import moe.rukamori.archivetune.ui.menu.LoadingScreen
 import moe.rukamori.archivetune.ui.theme.ArchiveTuneTheme
-import moe.rukamori.archivetune.viewmodels.BackupCategory
-import moe.rukamori.archivetune.viewmodels.BackupRestoreViewModel
+import moe.rukamori.archivetune.storage.BackupCategory
+import moe.rukamori.archivetune.storage.BackupRestoreViewModel
 
 @AndroidEntryPoint
 class RestoreBackupFileActivity : ComponentActivity() {

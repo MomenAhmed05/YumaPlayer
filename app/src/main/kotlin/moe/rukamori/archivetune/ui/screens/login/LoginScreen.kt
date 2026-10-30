@@ -38,8 +38,8 @@ import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.ui.component.IconButton
 import moe.rukamori.archivetune.ui.utils.backToMain
 import moe.rukamori.archivetune.utils.resetAuthWebViewSession
-import moe.rukamori.archivetune.viewmodels.LoginEvent
-import moe.rukamori.archivetune.viewmodels.LoginViewModel
+import moe.rukamori.archivetune.auth.LoginEvent
+import moe.rukamori.archivetune.auth.LoginViewModel
 
 const val LOGIN_ROUTE = "login"
 const val LOGIN_URL_ARGUMENT = "url"

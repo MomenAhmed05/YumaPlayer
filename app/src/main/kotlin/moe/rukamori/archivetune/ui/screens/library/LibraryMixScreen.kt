@@ -45,8 +45,8 @@ import moe.rukamori.archivetune.spotify.SpotifyPlaybackResolver
 import moe.rukamori.archivetune.ui.component.ExpressivePullToRefreshBox
 import moe.rukamori.archivetune.ui.settings.SettingsDimensions
 import moe.rukamori.archivetune.utils.rememberPreference
-import moe.rukamori.archivetune.viewmodels.LibraryMixViewModel
-import moe.rukamori.archivetune.viewmodels.MostPlayedAlbumUiState
+import moe.rukamori.archivetune.ui.screens.library.LibraryMixViewModel
+import moe.rukamori.archivetune.ui.screens.library.MostPlayedAlbumUiState
 
 @Composable
 fun LibraryMixScreen(

@@ -103,8 +103,8 @@ import moe.rukamori.archivetune.ui.settings.SettingsDimensions
 import moe.rukamori.archivetune.ui.theme.yumaClickable
 import moe.rukamori.archivetune.ui.theme.yumaGlassCard
 import moe.rukamori.archivetune.ui.utils.backToMain
-import moe.rukamori.archivetune.viewmodels.NewsUiState
-import moe.rukamori.archivetune.viewmodels.NewsViewModel
+import moe.rukamori.archivetune.ui.screens.news.NewsUiState
+import moe.rukamori.archivetune.ui.screens.news.NewsViewModel
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId

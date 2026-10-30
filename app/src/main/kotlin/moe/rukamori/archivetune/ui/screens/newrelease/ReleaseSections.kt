@@ -9,7 +9,7 @@
 package moe.rukamori.archivetune.ui.screens.newrelease
 
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import moe.rukamori.archivetune.viewmodels.NewReleaseContent
+import moe.rukamori.archivetune.ui.screens.newrelease.NewReleaseContent
 
 internal fun NewReleaseContent.releaseSections(): List<NewReleaseSection> =
     buildList {

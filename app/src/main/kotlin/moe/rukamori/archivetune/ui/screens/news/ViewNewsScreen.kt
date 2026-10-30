@@ -63,8 +63,8 @@ import moe.rukamori.archivetune.ui.screens.news.ViewNewsFullImageDialog
 import moe.rukamori.archivetune.ui.screens.news.ViewNewsLoadingState
 import moe.rukamori.archivetune.ui.screens.news.ViewNewsMetaRow
 import moe.rukamori.archivetune.ui.utils.backToMain
-import moe.rukamori.archivetune.viewmodels.ViewNewsUiState
-import moe.rukamori.archivetune.viewmodels.ViewNewsViewModel
+import moe.rukamori.archivetune.ui.screens.news.ViewNewsUiState
+import moe.rukamori.archivetune.ui.screens.news.ViewNewsViewModel
 import moe.rukamori.archivetune.ui.component.IconButton as AppIconButton
 
 @Composable

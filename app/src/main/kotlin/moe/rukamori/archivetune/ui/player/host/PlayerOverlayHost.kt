@@ -49,7 +49,7 @@ import moe.rukamori.archivetune.ui.system.PlayerSystemBars
 import moe.rukamori.archivetune.ui.system.SystemBarController
 import moe.rukamori.archivetune.ui.system.rememberPlayerBottomSheetState
 import moe.rukamori.archivetune.ui.theme.YdsInsets
-import moe.rukamori.archivetune.viewmodels.HomeViewModel
+import moe.rukamori.archivetune.home.HomeViewModel
 
 @Composable
 fun PlayerOverlayHost(

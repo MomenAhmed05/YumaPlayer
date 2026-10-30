@@ -46,7 +46,7 @@ import moe.rukamori.archivetune.ui.menu.ArtistMenu
 import moe.rukamori.archivetune.ui.menu.SongMenu
 import moe.rukamori.archivetune.utils.ComposeToImage
 import moe.rukamori.archivetune.utils.rememberPreference
-import moe.rukamori.archivetune.viewmodels.YearInMusicUiState
+import moe.rukamori.archivetune.ui.screens.yearinmusic.YearInMusicUiState
 
 @Composable
 internal fun YearInMusicRecapScreen(

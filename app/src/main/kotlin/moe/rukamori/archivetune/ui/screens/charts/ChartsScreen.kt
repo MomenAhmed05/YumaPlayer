@@ -69,8 +69,8 @@ import moe.rukamori.archivetune.ui.screens.charts.TOP_MUSIC_VIDEOS_SECTION_TITLE
 import moe.rukamori.archivetune.ui.screens.charts.chartsSongSections
 import moe.rukamori.archivetune.ui.screens.charts.chartsTopVideosSection
 import moe.rukamori.archivetune.ui.utils.backToMain
-import moe.rukamori.archivetune.viewmodels.ChartsUiState
-import moe.rukamori.archivetune.viewmodels.ChartsViewModel
+import moe.rukamori.archivetune.ui.screens.charts.ChartsUiState
+import moe.rukamori.archivetune.ui.screens.charts.ChartsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

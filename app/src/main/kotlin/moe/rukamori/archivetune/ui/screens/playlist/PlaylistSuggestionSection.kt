@@ -54,7 +54,7 @@ import moe.rukamori.archivetune.ui.component.DefaultDialog
 import moe.rukamori.archivetune.ui.component.IconButton
 import moe.rukamori.archivetune.ui.component.NavigationTitle
 import moe.rukamori.archivetune.ui.component.YouTubeListItem
-import moe.rukamori.archivetune.viewmodels.LocalPlaylistViewModel
+import moe.rukamori.archivetune.ui.screens.playlist.LocalPlaylistViewModel
 
 @Composable
 fun PlaylistSuggestionsSection(

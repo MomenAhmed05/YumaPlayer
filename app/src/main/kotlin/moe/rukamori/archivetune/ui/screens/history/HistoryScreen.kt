@@ -89,9 +89,9 @@ import moe.rukamori.archivetune.ui.screens.history.RemoteHistoryFeed
 import moe.rukamori.archivetune.ui.utils.appBarScrollBehavior
 import moe.rukamori.archivetune.ui.utils.backToMain
 import moe.rukamori.archivetune.utils.rememberPreference
-import moe.rukamori.archivetune.viewmodels.DateAgo
-import moe.rukamori.archivetune.viewmodels.HistoryViewModel
-import moe.rukamori.archivetune.viewmodels.RemoteHistoryUiState
+import moe.rukamori.archivetune.ui.screens.history.DateAgo
+import moe.rukamori.archivetune.ui.screens.history.HistoryViewModel
+import moe.rukamori.archivetune.ui.screens.history.RemoteHistoryUiState
 
 @Composable
 fun HistoryScreen(

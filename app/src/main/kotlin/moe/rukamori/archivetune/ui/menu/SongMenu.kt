@@ -59,7 +59,7 @@ import moe.rukamori.archivetune.utils.SpeedDialPinType
 import moe.rukamori.archivetune.utils.parseSpeedDialPins
 import moe.rukamori.archivetune.utils.rememberEnumPreference
 import moe.rukamori.archivetune.utils.rememberPreference
-import moe.rukamori.archivetune.viewmodels.CachePlaylistViewModel
+import moe.rukamori.archivetune.ui.screens.playlist.CachePlaylistViewModel
 
 @Composable
 fun SongMenu(

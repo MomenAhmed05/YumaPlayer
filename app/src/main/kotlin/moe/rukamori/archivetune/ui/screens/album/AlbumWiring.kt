@@ -26,7 +26,7 @@ import moe.rukamori.archivetune.playback.DownloadUtil
 import moe.rukamori.archivetune.ui.utils.HeaderDownloadState
 import moe.rukamori.archivetune.ui.utils.ItemWrapper
 import moe.rukamori.archivetune.ui.utils.headerDownloadState
-import moe.rukamori.archivetune.viewmodels.AlbumUiState
+import moe.rukamori.archivetune.ui.screens.album.AlbumUiState
 
 @Immutable
 data class AlbumScreenUiState(

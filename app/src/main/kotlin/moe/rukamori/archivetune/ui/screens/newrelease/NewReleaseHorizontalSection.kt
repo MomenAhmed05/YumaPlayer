@@ -50,7 +50,7 @@ import kotlinx.coroutines.CoroutineScope
 import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.innertube.models.AlbumItem
 import moe.rukamori.archivetune.ui.component.YouTubeGridItem
-import moe.rukamori.archivetune.viewmodels.NewReleaseContent
+import moe.rukamori.archivetune.ui.screens.newrelease.NewReleaseContent
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

@@ -18,7 +18,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import moe.rukamori.archivetune.R
-import moe.rukamori.archivetune.viewmodels.OnlineSearchSort
+import moe.rukamori.archivetune.ui.screens.search.OnlineSearchSort
 
 @Composable
 fun OnlineSearchSortMenu(

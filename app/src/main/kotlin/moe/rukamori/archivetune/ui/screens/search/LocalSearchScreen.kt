@@ -32,8 +32,8 @@ import moe.rukamori.archivetune.ui.main.LocalPlayerConnection
 import moe.rukamori.archivetune.db.entities.Song
 import moe.rukamori.archivetune.ui.component.ChipsRow
 import moe.rukamori.archivetune.ui.component.LocalMenuState
-import moe.rukamori.archivetune.viewmodels.LocalFilter
-import moe.rukamori.archivetune.viewmodels.LocalSearchViewModel
+import moe.rukamori.archivetune.ui.screens.search.LocalFilter
+import moe.rukamori.archivetune.ui.screens.search.LocalSearchViewModel
 
 @Composable
 fun LocalSearchScreen(

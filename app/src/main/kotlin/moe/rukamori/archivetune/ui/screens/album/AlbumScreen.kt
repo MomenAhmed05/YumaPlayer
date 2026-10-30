@@ -66,7 +66,7 @@ import moe.rukamori.archivetune.ui.screens.album.rememberAlbumDownloadUiState
 import moe.rukamori.archivetune.ui.screens.album.rememberAlbumSelectionState
 import moe.rukamori.archivetune.ui.screens.album.rememberAlbumUiState
 import moe.rukamori.archivetune.utils.rememberPreference
-import moe.rukamori.archivetune.viewmodels.AlbumViewModel
+import moe.rukamori.archivetune.ui.screens.album.AlbumViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -29,7 +29,7 @@ import moe.rukamori.archivetune.playback.PlayerConnection
 import moe.rukamori.archivetune.ui.component.BottomSheetPageState
 import moe.rukamori.archivetune.ui.component.MenuSurfaceSection
 import moe.rukamori.archivetune.utils.SpeedDialPin
-import moe.rukamori.archivetune.viewmodels.CachePlaylistViewModel
+import moe.rukamori.archivetune.ui.screens.playlist.CachePlaylistViewModel
 
 @Composable
 internal fun SongMenuContent(

@@ -41,7 +41,7 @@ import kotlinx.coroutines.CoroutineScope
 import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.innertube.models.AlbumItem
 import moe.rukamori.archivetune.ui.component.NavigationTitle
-import moe.rukamori.archivetune.viewmodels.AlbumUiState
+import moe.rukamori.archivetune.ui.screens.album.AlbumUiState
 import moe.rukamori.archivetune.ui.component.YouTubeGridItem
 import moe.rukamori.archivetune.ui.component.shimmer.ButtonPlaceholder
 import moe.rukamori.archivetune.ui.component.shimmer.ListItemPlaceHolder

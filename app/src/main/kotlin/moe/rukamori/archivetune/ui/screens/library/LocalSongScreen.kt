@@ -88,7 +88,7 @@ import moe.rukamori.archivetune.ui.screens.library.local.LocalSongSortType
 import moe.rukamori.archivetune.ui.screens.library.local.toFolderEntry
 import moe.rukamori.archivetune.ui.settings.SettingsDimensions
 import moe.rukamori.archivetune.utils.rememberPreference
-import moe.rukamori.archivetune.viewmodels.LocalSongsViewModel
+import moe.rukamori.archivetune.localmedia.LocalSongsViewModel
 import java.text.Collator
 import java.time.LocalDateTime
 import java.util.Locale

@@ -65,9 +65,9 @@ import moe.rukamori.archivetune.ui.menu.YouTubeAlbumMenu
 import moe.rukamori.archivetune.ui.screens.newrelease.NewReleaseGridContent
 import moe.rukamori.archivetune.ui.screens.newrelease.NewReleaseTab
 import moe.rukamori.archivetune.ui.utils.backToMain
-import moe.rukamori.archivetune.viewmodels.NewReleaseContent
-import moe.rukamori.archivetune.viewmodels.NewReleaseUiState
-import moe.rukamori.archivetune.viewmodels.NewReleaseViewModel
+import moe.rukamori.archivetune.ui.screens.newrelease.NewReleaseContent
+import moe.rukamori.archivetune.ui.screens.newrelease.NewReleaseUiState
+import moe.rukamori.archivetune.ui.screens.newrelease.NewReleaseViewModel
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable

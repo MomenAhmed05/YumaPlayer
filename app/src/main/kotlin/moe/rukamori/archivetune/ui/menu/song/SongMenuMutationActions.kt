@@ -25,7 +25,7 @@ import moe.rukamori.archivetune.db.entities.PlaylistSong
 import moe.rukamori.archivetune.db.entities.Song
 import moe.rukamori.archivetune.ui.component.NewMenuItem
 import moe.rukamori.archivetune.ui.menu.removeSongFromRemotePlaylist
-import moe.rukamori.archivetune.viewmodels.CachePlaylistViewModel
+import moe.rukamori.archivetune.ui.screens.playlist.CachePlaylistViewModel
 
 @Composable
 internal fun SongMenuMutationHistoryItem(

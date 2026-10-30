@@ -87,8 +87,8 @@ import moe.rukamori.archivetune.utils.Updater
 import moe.rukamori.archivetune.utils.dataStore
 import moe.rukamori.archivetune.utils.get
 import moe.rukamori.archivetune.utils.reportException
-import moe.rukamori.archivetune.viewmodels.BackupCategory
-import moe.rukamori.archivetune.viewmodels.BackupRestoreViewModel
+import moe.rukamori.archivetune.storage.BackupCategory
+import moe.rukamori.archivetune.storage.BackupRestoreViewModel
 import kotlin.time.Duration.Companion.days
 
 @Composable

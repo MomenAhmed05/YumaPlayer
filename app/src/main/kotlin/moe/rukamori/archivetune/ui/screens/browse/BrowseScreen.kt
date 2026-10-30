@@ -56,8 +56,8 @@ import moe.rukamori.archivetune.ui.menu.YouTubeArtistMenu
 import moe.rukamori.archivetune.ui.menu.YouTubePlaylistMenu
 import moe.rukamori.archivetune.ui.settings.SettingsDimensions
 import moe.rukamori.archivetune.ui.utils.backToMain
-import moe.rukamori.archivetune.viewmodels.BrowseViewModel
-import moe.rukamori.archivetune.viewmodels.YouTubeBrowseUiState
+import moe.rukamori.archivetune.ui.screens.browse.BrowseViewModel
+import moe.rukamori.archivetune.ui.screens.browse.YouTubeBrowseUiState
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable

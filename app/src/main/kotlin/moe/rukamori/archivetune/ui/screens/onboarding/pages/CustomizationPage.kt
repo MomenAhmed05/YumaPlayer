@@ -68,7 +68,7 @@ internal fun CustomizationPage(
     val spotifyAccountViewModel: SpotifyAccountViewModel = hiltViewModel()
     val spotifyState by spotifyAccountViewModel.uiState.collectAsStateWithLifecycle()
 
-    val homeViewModel: moe.rukamori.archivetune.viewmodels.HomeViewModel = hiltViewModel()
+    val homeViewModel: moe.rukamori.archivetune.home.HomeViewModel = hiltViewModel()
     val accountNameFromViewModel by homeViewModel.accountName.collectAsStateWithLifecycle()
     val accountImageUrl by homeViewModel.accountImageUrl.collectAsStateWithLifecycle()
     val accountChannelsState by homeViewModel.accountChannelsState.collectAsStateWithLifecycle()

@@ -48,7 +48,7 @@ import moe.rukamori.archivetune.ui.component.LibraryAlbumGridItem
 import moe.rukamori.archivetune.ui.component.LocalMenuState
 import moe.rukamori.archivetune.ui.scaffold.HeaderHazeBackdrop
 import moe.rukamori.archivetune.ui.scaffold.rememberHeaderScrollProgress
-import moe.rukamori.archivetune.viewmodels.ArtistAlbumsViewModel
+import moe.rukamori.archivetune.ui.screens.artist.ArtistAlbumsViewModel
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable

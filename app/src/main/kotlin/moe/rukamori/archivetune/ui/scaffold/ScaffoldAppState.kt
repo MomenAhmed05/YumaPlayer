@@ -56,9 +56,9 @@ import moe.rukamori.archivetune.ui.state.UpdateState
 import moe.rukamori.archivetune.ui.theme.YdsInsets
 import moe.rukamori.archivetune.utils.rememberEnumPreference
 import moe.rukamori.archivetune.utils.rememberPreference
-import moe.rukamori.archivetune.viewmodels.HomeViewModel
-import moe.rukamori.archivetune.viewmodels.NetworkBannerViewModel
-import moe.rukamori.archivetune.viewmodels.UpdateViewModel
+import moe.rukamori.archivetune.home.HomeViewModel
+import moe.rukamori.archivetune.network.NetworkBannerViewModel
+import moe.rukamori.archivetune.ui.screens.settings.update.UpdateViewModel
 
 @Stable
 class ScaffoldAppState(

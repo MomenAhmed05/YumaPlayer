@@ -29,7 +29,7 @@ import moe.rukamori.archivetune.ui.component.NavigationTitle
 import moe.rukamori.archivetune.ui.navigation.buildYouTubeBrowseRoute
 import moe.rukamori.archivetune.ui.screens.moodandgenres.MOOD_GENRES_HEADER_KEY
 import moe.rukamori.archivetune.ui.screens.moodandgenres.moodAndGenresSection
-import moe.rukamori.archivetune.viewmodels.MoodAndGenresViewModel
+import moe.rukamori.archivetune.ui.screens.moodandgenres.MoodAndGenresViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

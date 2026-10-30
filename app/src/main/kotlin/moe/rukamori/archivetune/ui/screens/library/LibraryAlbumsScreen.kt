@@ -47,7 +47,7 @@ import moe.rukamori.archivetune.ui.component.ExpressivePullToRefreshBox
 import moe.rukamori.archivetune.ui.settings.SettingsDimensions
 import moe.rukamori.archivetune.utils.rememberEnumPreference
 import moe.rukamori.archivetune.utils.rememberPreference
-import moe.rukamori.archivetune.viewmodels.LibraryAlbumsViewModel
+import moe.rukamori.archivetune.ui.screens.library.LibraryAlbumsViewModel
 
 @Composable
 fun LibraryAlbumsScreen(

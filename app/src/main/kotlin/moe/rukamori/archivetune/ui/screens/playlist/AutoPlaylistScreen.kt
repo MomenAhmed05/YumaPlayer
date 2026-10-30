@@ -72,7 +72,7 @@ import moe.rukamori.archivetune.ui.utils.backToMain
 import moe.rukamori.archivetune.ui.utils.sendAddMissingDownloads
 import moe.rukamori.archivetune.utils.rememberEnumPreference
 import moe.rukamori.archivetune.utils.rememberPreference
-import moe.rukamori.archivetune.viewmodels.AutoPlaylistViewModel
+import moe.rukamori.archivetune.ui.screens.playlist.AutoPlaylistViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

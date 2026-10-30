@@ -57,7 +57,7 @@ import moe.rukamori.archivetune.ui.haptics.rememberYumaHaptics
 import moe.rukamori.archivetune.ui.scaffold.HeaderHazeBackdrop
 import moe.rukamori.archivetune.ui.scaffold.rememberHeaderScrollProgress
 import moe.rukamori.archivetune.utils.rememberPreference
-import moe.rukamori.archivetune.viewmodels.OnlinePlaylistViewModel
+import moe.rukamori.archivetune.ui.screens.playlist.OnlinePlaylistViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

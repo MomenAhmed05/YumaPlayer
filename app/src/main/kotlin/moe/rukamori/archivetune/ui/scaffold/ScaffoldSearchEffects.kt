@@ -37,8 +37,8 @@ import moe.rukamori.archivetune.ui.screens.search.OnlineSearchResultRoutePrefix
 import moe.rukamori.archivetune.ui.screens.search.decodeOnlineSearchQuery
 import moe.rukamori.archivetune.ui.screens.search.onlineSearchResultRoute
 import moe.rukamori.archivetune.utils.rememberEnumPreference
-import moe.rukamori.archivetune.viewmodels.OnlineSearchSort
-import moe.rukamori.archivetune.viewmodels.OnlineSearchViewModel
+import moe.rukamori.archivetune.ui.screens.search.OnlineSearchSort
+import moe.rukamori.archivetune.ui.screens.search.OnlineSearchViewModel
 
 @Stable
 class ScaffoldSearchState(

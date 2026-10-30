@@ -56,7 +56,7 @@ import moe.rukamori.archivetune.ui.component.LocalMenuState
 import moe.rukamori.archivetune.ui.component.asScrollContract
 import moe.rukamori.archivetune.ui.haptics.rememberYumaHaptics
 import moe.rukamori.archivetune.utils.rememberPreference
-import moe.rukamori.archivetune.viewmodels.StatsViewModel
+import moe.rukamori.archivetune.ui.screens.stats.StatsViewModel
 import java.time.LocalDateTime
 
 @OptIn(ExperimentalMaterial3Api::class)
