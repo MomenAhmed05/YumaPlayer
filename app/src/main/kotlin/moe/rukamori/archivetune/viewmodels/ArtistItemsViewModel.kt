@@ -17,6 +17,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import moe.rukamori.archivetune.artist.ArtistItemsPrefetcher
 import moe.rukamori.archivetune.constants.HideExplicitKey
 import moe.rukamori.archivetune.db.MusicDatabase
 import moe.rukamori.archivetune.extensions.filterBlockedArtists
@@ -37,6 +38,7 @@ class ArtistItemsViewModel
     constructor(
         @ApplicationContext val context: Context,
         private val database: MusicDatabase,
+        private val prefetcher: ArtistItemsPrefetcher,
         savedStateHandle: SavedStateHandle,
     ) : ViewModel() {
         private val browseId = savedStateHandle.get<String>("browseId")!!
@@ -63,10 +65,10 @@ class ArtistItemsViewModel
             loadFailed.value = false
             viewModelScope.launch {
                 val endpoint = BrowseEndpoint(browseId = browseId, params = params)
+                // The artist page usually started this list already; otherwise (or if that failed) load it here.
                 // YouTube sometimes turns a request away for a moment; one quiet second try saves
                 // the user from a failed page.
-                YouTube
-                    .artistItems(endpoint)
+                (prefetcher.prefetched(endpoint)?.let { Result.success(it) } ?: YouTube.artistItems(endpoint))
                     .recoverCatching { error ->
                         if (error is CancellationException) throw error
                         delay(RETRY_DELAY_MS)
